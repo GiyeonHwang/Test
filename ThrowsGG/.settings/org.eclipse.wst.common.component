@@ -1,30 +1,14 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="ThrowsGG">
-        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-        <property name="context-root" value="ThrowsGG"/>
-        <property name="java-output-path" value="/ThrowsGG/build/classes"/>
-    </wb-module>
-</project-modules>
-=======
-<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-            
-    
-    <wb-module deploy-name="ThrowsGG">
-                        
         
+    <wb-module deploy-name="ThrowsGG">
+                
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                        
-        
+                
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                        
-        
+                
         <property name="java-output-path" value="/ThrowsGG/build/classes"/>
         <property name="context-root" value="ThrowsGG"/>
-                    
-    
+            
     </wb-module>
-        
-
+    
 </project-modules>
->>>>>>> branch 'master' of https://github.com/GiyeonHwang/Test.git
