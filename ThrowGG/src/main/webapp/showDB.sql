@@ -1,9 +1,8 @@
-use animals;
-show databases;
+use people;
 
 show tables;
-desc member;
-
 
 select *
 from member;
+
+desc member;

@@ -204,8 +204,6 @@
                         <!-- Submit button -->
                         <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
 
-
-
 <!-- 회원 가입 부분 -->
                         <!-- Register buttons -->
                         <div class="text-center">
@@ -246,14 +244,16 @@
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
-                          <input type="password" id="registerPassword" class="form-control" />
+                          <input type="password" id="registerPassword" class="form-control" required id = "registerRepeatPassword"/>
                           <label class="form-label" for="registerPassword">Password</label>
                         </div>
 
                         <!-- Repeat Password input -->
                         <div class="form-outline mb-4">
-                          <input type="password" id="registerRepeatPassword" class="form-control" />
+                          <input type="password" id="registerRepeatPassword" class="form-control" required data-rule-equalto="#registerPassword" />
                           <label class="form-label" for="registerRepeatPassword">Repeat password</label>
+                          <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+                          <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
                         </div>
 
                         <!-- Checkbox -->
@@ -266,7 +266,7 @@
                         </div>
 
                         <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
+                        <button type="submit" class="btn btn-primary btn-block mb-3" id ="submit">Sign in</button>
                       </form>
                     </div>
                   </div>
@@ -291,6 +291,7 @@
   <!-- YOUR WORK HERE -->
 	<script src="js/telcheck.js"></script>
 	<script src="js/login-check.js"></script>
+	<script src="js/repeat-password.js"></script>
   <!-- Prism -->
 
   <script type="text/javascript" src="https://mdbgo.io/mikolaj-smolenski/mdb5-demo-pro/dev/js/new-prism.js"></script>
