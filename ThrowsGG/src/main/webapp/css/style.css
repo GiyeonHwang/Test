@@ -5095,9 +5095,7 @@ a.close.disabled {
   width: 20px;
   height: 20px;
   background: transparent no-repeat center center;
-  background-size: 100% 100%; 
-  object-fit: cover; /*0803 - mkc 수정*/
-  }
+  background-size: 100% 100%; }
 
 .carousel-control-prev-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3e%3c/svg%3e"); }
@@ -9555,13 +9553,12 @@ textarea.form-control {
 .contactForm textarea.form-control {
   height: inherit !important; }
 
-/*#map { mkc 수정
+#map {
   height: 500px;
   width: 100%; }
   @media (max-width: 767.98px) {
     #map {
       height: 300px; } }
-     */
 
 .block-21 .blog-img {
   display: block;
@@ -9801,7 +9798,8 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
-  /* mkc 수정 */
-.google_ft{
-	font-family: 'Nanum Gothic', sans-serif;
-}
+    
+ input{
+ 	font: small-caption;
+  	font-size: 16px;
+ }

@@ -2,6 +2,7 @@
 <faceted-project>
   <runtime name="Apache Tomcat v9.0"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <fixed facet="jst.web"/>
   <fixed facet="wst.jsdt.web"/>
   <fixed facet="java"/>
@@ -10,10 +11,17 @@
   <installed facet="wst.jsdt.web" version="1.0"/>
 =======
   <fixed facet="java"/>
+=======
+>>>>>>> branch 'master' of https://github.com/GiyeonHwang/Test.git
   <fixed facet="jst.web"/>
+  <fixed facet="java"/>
   <fixed facet="wst.jsdt.web"/>
+  <installed facet="java" version="18"/>
   <installed facet="jst.web" version="4.0"/>
   <installed facet="wst.jsdt.web" version="1.0"/>
+<<<<<<< HEAD
   <installed facet="java" version="11"/>
 >>>>>>> branch 'giChang' of https://github.com/GiyeonHwang/Test.git
+=======
+>>>>>>> branch 'master' of https://github.com/GiyeonHwang/Test.git
 </faceted-project>
