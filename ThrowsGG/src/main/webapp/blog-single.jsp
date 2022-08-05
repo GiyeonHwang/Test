@@ -78,18 +78,18 @@ System.out.println(addresses[0] + " " + addresses[1]);
 					</p>
 					<h2 class="mb-3"></h2>
 					<h2 class="mb-3 mt-5">특이사항</h2>
-					<table style="width: 100%;">
+					<table style="width: 100%;" border= 1px solid black; >
 						<tbody>
 							<tr>
 								<td
 									style="width: 18.2668%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
 										<span style="font-size: 14px;"><span
-											style="color: rgb(255, 255, 255);">묘종 / 견종</span></span><span
+											style="color: rgb(255, 255, 255);">종</span></span><span
 											style="font-size: 13px;"><br></span>
 									</div></td>
 								<td style="width: 31.7989%; text-align: center;"><div
-										style="text-align: center;">시바이누</div></td>
+										style="text-align: center;"><%=dateAbandon.getKindCd() %></div></td>
 								<td
 									style="width: 16.82%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
@@ -98,7 +98,7 @@ System.out.println(addresses[0] + " " + addresses[1]);
 											style="font-size: 13px;"><br></span>
 									</div></td>
 								<td style="width: 33.1143%; text-align: center;"><div
-										style="text-align: center;">2살령</div></td>
+										style="text-align: center;"><%=dateAbandon.getAge()%></div></td>
 							</tr>
 							<tr>
 								<td
@@ -109,27 +109,27 @@ System.out.println(addresses[0] + " " + addresses[1]);
 											style="font-size: 13px;"><br></span>
 									</div></td>
 								<td style="width: 31.7989%; text-align: center;"><div
-										style="text-align: center;">남아</div></td>
+										style="text-align: center;"><%=dateAbandon.getSexCd()%></div></td>
 								<td
 									style="width: 16.82%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
 										<span style="font-size: 14px;"><span
-											style="color: rgb(255, 255, 255);">특이사항</span></span><span
+											style="color: rgb(255, 255, 255);">체중</span></span><span
 											style="font-size: 13px;"><br></span>
 									</div></td>
 								<td style="width: 33.1143%; text-align: center;"><div
-										style="text-align: center;">-</div></td>
+										style="text-align: center;"><%=dateAbandon.getWeight()%></div></td>
 							</tr>
 							<tr>
 								<td
 									style="width: 18.2668%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
 										<span style="font-size: 14px;"><span
-											style="color: rgb(255, 255, 255);">접종유무</span></span><span
+											style="color: rgb(255, 255, 255);">상태</span></span><span
 											style="font-size: 13px;"><br></span>
 									</div></td>
 								<td style="width: 31.7989%; text-align: center;"><div
-										style="text-align: center;">완료</div></td>
+										style="text-align: center;"><%=dateAbandon.getProcessState() %></div></td>
 								<td
 									style="width: 16.82%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
@@ -138,116 +138,44 @@ System.out.println(addresses[0] + " " + addresses[1]);
 											style="font-size: 13px;"><br></span>
 									</div></td>
 								<td style="width: 33.1143%; text-align: center;"><div
-										style="text-align: center;">미완료</div></td>
+										style="text-align: center;"><%=dateAbandon.getNeuterYn()%></div></td>
 							</tr>
 							<tr>
 								<td
 									style="width: 18.2668%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
-										<span style="color: rgb(255, 255, 255); font-size: 14px;">보호소로
-											오게 된 이유</span>
+										<span style="color: rgb(255, 255, 255); font-size: 14px;">발견장소</span>
 									</div></td>
 								<td style="width: 31.7989%; text-align: center;"><div
-										style="text-align: center;">케어불가</div></td>
+										style="text-align: center;"><%=dateAbandon.getHappenPlace() %></div></td>
 								<td
 									style="width: 16.82%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
-										<span style="color: rgb(255, 255, 255); font-size: 14px;">맡겨지기
-											전 가정 환경</span>
+										<span style="color: rgb(255, 255, 255); font-size: 14px;">특징</span>
 									</div></td>
 								<td style="width: 33.1143%; text-align: center;"><div
-										style="text-align: center;">-</div></td>
+										style="text-align: center;"><%=dateAbandon.getSpecialMark() %></div></td>
 							</tr>
 							<tr>
 								<td
 									style="width: 18.2668%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
-										<span style="color: rgb(255, 255, 255); font-size: 14px;">좋아하는
-											것</span>
+										<span style="color: rgb(255, 255, 255); font-size: 14px;">보호소 이름</span>
 									</div></td>
 								<td style="width: 31.7989%; text-align: center;"><div
-										style="text-align: center;">-</div></td>
+										style="text-align: center;"><%=dateAbandon.getCareNm() %></div></td>
 								<td
 									style="width: 16.82%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
-										<span style="color: rgb(255, 255, 255); font-size: 14px;">싫어하는
-											것</span>
+										<span style="color: rgb(255, 255, 255); font-size: 14px;">보호소 전화번호</span>
 									</div></td>
 								<td style="width: 33.1143%; text-align: center;"><div
-										style="text-align: center;">-</div></td>
+										style="text-align: center;"><%=dateAbandon.getCareTel() %></div></td>
 							</tr>
 						</tbody>
 					</table>
-					<!--  <p>
-						등록번호 :
-						<%=dateAbandon.getDesertionNo()%></p>
-					<p>
-						발견장소 :
-						<%=dateAbandon.getHappenPlace()%></p>
-					<p>
-						품종 :
-						<%=dateAbandon.getKindCd()%>
-					</p>
-					<p>
-						나이 :
-						<%=dateAbandon.getAge()%>
-					</p>
-					<p>
-						체중 :
-						<%=dateAbandon.getWeight()%>
-					</p>
-					<p>
-						성별 :
-						<%=dateAbandon.getSexCd()%>
-					</p>
-					<p>
-						특징 :
-						<%=dateAbandon.getSpecialMark()%>
-					</p>
-					<p>
-						상태 :
-						<%=dateAbandon.getProcessState()%>
-					</p>
-					<p>
-						보호소 :
-						<%=dateAbandon.getCareNm()%>*/
-					</p>-->
-					<h2 class="mb-3 mt-5">#2. Creative WordPress Themes</h2>
-					<p>Temporibus ad error suscipit exercitationem hic molestiae
-						totam obcaecati rerum, eius aut, in. Exercitationem atque quidem
-						tempora maiores ex architecto voluptatum aut officia doloremque.
-						Error dolore voluptas, omnis molestias odio dignissimos culpa ex
-						earum nisi consequatur quos odit quasi repellat qui officiis
-						reiciendis incidunt hic non? Debitis commodi aut, adipisci.</p>
-					<p>
-					<div id="map" style="width: 100%; height: 400px;"></div>
-					</p>
-					<p>Quisquam esse aliquam fuga distinctio, quidem delectus
-						veritatis reiciendis. Nihil explicabo quod, est eos ipsum. Unde
-						aut non tenetur tempore, nisi culpa voluptate maiores officiis
-						quis vel ab consectetur suscipit veritatis nulla quos quia
-						aspernatur perferendis, libero sint. Error, velit, porro. Deserunt
-						minus, quibusdam iste enim veniam, modi rem maiores.</p>
-					<p>Odit voluptatibus, eveniet vel nihil cum ullam dolores
-						laborum, quo velit commodi rerum eum quidem pariatur! Quia fuga
-						iste tenetur, ipsa vel nisi in dolorum consequatur, veritatis
-						porro explicabo soluta commodi libero voluptatem similique id
-						quidem? Blanditiis voluptates aperiam non magni. Reprehenderit
-						nobis odit inventore, quia laboriosam harum excepturi ea.</p>
-					<p>Adipisci vero culpa, eius nobis soluta. Dolore, maxime ullam
-						ipsam quidem, dolor distinctio similique asperiores voluptas enim,
-						exercitationem ratione aut adipisci modi quod quibusdam iusto,
-						voluptates beatae iure nemo itaque laborum. Consequuntur et
-						pariatur totam fuga eligendi vero dolorum provident. Voluptatibus,
-						veritatis. Beatae numquam nam ab voluptatibus culpa, tenetur
-						recusandae!</p>
-					<p>Voluptas dolores dignissimos dolorum temporibus, autem
-						aliquam ducimus at officia adipisci quasi nemo a perspiciatis
-						provident magni laboriosam repudiandae iure iusto commodi debitis
-						est blanditiis alias laborum sint dolore. Dolores, iure,
-						reprehenderit. Error provident, pariatur cupiditate soluta
-						doloremque aut ratione. Harum voluptates mollitia illo minus
-						praesentium, rerum ipsa debitis, inventore?</p>
+					<h2 class="mb-3 mt-5 googleft">위치정보</h2>
+					<p>	<div id="map" style="width: 100%; height: 400px;"></div></p>
 					<div class="tag-widget post-tag-container mb-5 mt-5">
 						<div class="tagcloud">
 							<a href="#" class="tag-cloud-link">Life</a> <a href="#"
@@ -695,9 +623,9 @@ var contentString = [
         '<div class="iw_inner">',
         '   <h4 class="google_ft"><%=dateAbandon.getCareNm()%></h4>',
         '   <p class="google_ft"><%=dateAbandon.getCareAddr()%><br />',
-        '       <%=dateAbandon.getOfficetel()%>
-		', '   </p>', '</div>' ]
-				.join('');
+        '   <%=dateAbandon.getOfficetel()%>', 
+		'   </p>', '</div>'
+		 ].join('');
 
 		var infowindow = new naver.maps.InfoWindow({
 			content : contentString

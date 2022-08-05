@@ -134,7 +134,11 @@ public class DateAbandon {
 	}
 
 	public void setSexCd(String sexCd) {
-		this.sexCd = sexCd;
+		if (sexCd.equals("M")) {
+			this.sexCd = "수컷";
+		} else {
+			this.sexCd = "암컷";
+		}
 	}
 
 	public String getNeuterYn() {
@@ -142,7 +146,12 @@ public class DateAbandon {
 	}
 
 	public void setNeuterYn(String neuterYn) {
-		this.neuterYn = neuterYn;
+		if (neuterYn.equals("Y")) {
+			this.neuterYn = "완료";
+		} else {
+			this.neuterYn = "미완료";
+		}
+
 	}
 
 	public String getSpecialMark() {
@@ -150,7 +159,12 @@ public class DateAbandon {
 	}
 
 	public void setSpecialMark(String specialMark) {
-		this.specialMark = specialMark;
+		if (specialMark.equals(null)) {
+			this.specialMark = "-";
+		} else {
+			this.specialMark = specialMark;
+		}
+
 	}
 
 	public String getCareNm() {
