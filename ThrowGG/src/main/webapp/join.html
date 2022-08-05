@@ -120,6 +120,53 @@
                     </li>
                   </ul>
                   <!-- Pills navs -->
+                  
+                  <!-- 부트스트랩 체크 부분  -->                  
+                  <form class="row g-3 needs-validation" novalidate>
+  						<div class="col-md-4 position-relative">
+						    <label for="validationTooltip01" class="form-label">First name</label>
+						    <input type="text" class="form-control" id="validationTooltip01" value="Mark" minlength="1" required>
+						    <div class="valid-tooltip">
+						      Looks good!
+						    </div>
+						  </div>
+					  <div class="col-md-4 position-relative">
+					    <label for="validationTooltip02" class="form-label">Last name</label>
+					    <input type="text" class="form-control" id="validationTooltip02" value="Otto" required>
+					    <div class="valid-tooltip">
+					      Looks good!
+					    </div>
+					  </div>
+					  
+					  <div class="col-md-6 position-relative">
+					    <label for="validationTooltip03" class="form-label">City</label>
+					    <input type="text" class="form-control" id="validationTooltip03" required>
+					    <div class="invalid-tooltip">
+					      Please provide a valid city.
+					    </div>
+					  </div>
+					  <div class="col-md-3 position-relative">
+					    <label for="validationTooltip04" class="form-label">State</label>
+					    <select class="form-select" id="validationTooltip04" required>
+					      <option selected disabled value="">Choose...</option>
+					      <option>...</option>
+					    </select>
+					    <div class="invalid-tooltip">
+					      Please select a valid state.
+					    </div>
+					  </div>
+					  <div class="col-md-3 position-relative">
+					    <label for="validationTooltip05" class="form-label">Zip</label>
+					    <input type="text" class="form-control" id="validationTooltip05" required>
+					    <div class="invalid-tooltip">
+					      Please provide a valid zip.
+					    </div>
+					  </div>
+					  <div class="col-12">
+					    <button class="btn btn-primary" type="submit">Submit form</button>
+					  </div>
+					</form>
+<!-- 부트 스트랩 끝 -->
 
                   <!-- Pills content -->
                   <div class="tab-content">
@@ -157,6 +204,9 @@
                         <!-- Submit button -->
                         <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
 
+
+
+<!-- 회원 가입 부분 -->
                         <!-- Register buttons -->
                         <div class="text-center">
                           <p>Not a member? <a href="#!">Register</a></p>
@@ -164,7 +214,9 @@
                       </form>
                     </div>
                     <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                      <form>
+                      <form class="row g-3 needs-validation" novalidate>
+                      
+                      
                         <!-- Name input -->
                         <div class="form-outline mb-4">
                           <input type="text" id="registerName" class="form-control" minlength ="2" required/>
@@ -185,21 +237,7 @@
                           <label class="form-label" for="registerUsername">phone number</label>
                         </div>
                         
-                        <!-- registration input -->
-                        <div class="form-outline mb-4">
-                        <div class="input-group">    
-                        <div class="form-outline mb-4">
-			                <input type="text" id="fornt-registerPassword" class="form-control" maxlength="6"/>
-	                        <label class="form-label" for="registerPassword">주민번호</label>   
-	                    </div>
-	                    <div class= "text" style="font-size:25px">
-	                    <p>&nbsp;&nbsp;-&nbsp;&nbsp;</p>
-	                   	</div>
-	                    <div class="form-outline mb-4">
-	                        <input type="password" id="back-registerPassword" class="form-control" maxlength="7"/>
-	                    </div>
-						</div>
-						</div>
+                       
                         <!-- id input -->
                         <div class="form-outline mb-4">
                           <input type="text" id="registerEmail" class="form-control" />
@@ -252,6 +290,7 @@
   </main>
   <!-- YOUR WORK HERE -->
 	<script src="js/telcheck.js"></script>
+	<script src="js/login-check.js"></script>
   <!-- Prism -->
 
   <script type="text/javascript" src="https://mdbgo.io/mikolaj-smolenski/mdb5-demo-pro/dev/js/new-prism.js"></script>
