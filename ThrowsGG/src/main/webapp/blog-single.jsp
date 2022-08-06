@@ -59,35 +59,34 @@ ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(deserti
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <script type="text/javascript">
-
-	$("#buttonSubmit").click(function() { // 제출 버튼 이벤트 지정
-		console.log('ajax 실행');
-	
-<%-- 		<% --%>
-// 		if(id == null){
-<%-- 		%> --%>
-// 		alert("로그인이 필요합니다.");
-// 		location.href='./login.do';
-<%-- 		<% --%>
-// 		}else{
-			
-<%-- 		%> --%>
+$(document).ready(function (){
+	$("input[name='buttonSubmit']").click(function() { // 제출 버튼 이벤트 지정
+		console.log('ajax실행');
+		<%-- 		<% --%>
+		// 		if(id == null){
+		<%-- 		%> --%>
+		// 		alert("로그인이 필요합니다.");
+		// 		location.href='./login.do';
+		<%-- 		<% --%>
+		// 		}else{
+					
+		<%-- 		%> --%>
 		const id = 'mkc';
 		$.ajax({
 			type: "POST", // HTTP Method
 			url: "./blog-single", // 목적지
-			data: {userid : id,
-				   content :$("#messageCM").val()  // 전송 데이터
+			data: {userid : id,			   // 전송 데이터
+				   content :$("#messageCM").val(),
+					desertionNo : <%=desertionNo%>
 			}
-			success:function(res) { // 성공 시 실행
-				console.log('보내기 성공');
-			},
-			error:function(er) { //실패 시 실행
-				alert("실패 원인 : " + er);
-			}
+		}).done(function(data){
+			console.log('success')
+			location.reload()
+			}).fail(function (Response) {
+				console.log('에러')
+            });
 		});
 	});
-
 </script>
 <body>
 	 <jsp:include page="Nav.jsp"></jsp:include>
@@ -380,8 +379,8 @@ ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(deserti
 										class="form-control"></textarea>
 								</div>
 								<div class="form-group">
-									<input type="submit" value="Post Comment"
-										class="btn py-3 px-4 btn-primary" id="buttonSubmit">
+									<input type="button" value="Post Comment"
+										class="btn py-3 px-4 btn-primary" name="buttonSubmit">
 								</div>
 
 <!-- 							</form> -->
