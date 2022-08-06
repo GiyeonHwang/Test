@@ -13,17 +13,13 @@
 <jsp:useBean id="abandonList" class="gg.AbandonList"></jsp:useBean>
 <jsp:useBean id="mapAddresChange" class="gg.MapAddresChange"
 	scope="request"></jsp:useBean>
-<jsp:useBean id="indexCommenysDAO" class="gg.IndexCommentsDAO"
-	scope="request"></jsp:useBean>
 <%
 String desertionNo = (String)request.getAttribute("desertionNo");//현재 페이지의 유기동물의 유기번호
-System.out.println("blog-single.jsp 유기번호 = " + desertionNo);
+ArrayList<IndexCommentsVO> commentList = (ArrayList<IndexCommentsVO>)request.getAttribute("commentList");//현재 페이지의 유기동물의 유기번호
 DateAbandon dateAbandon = abandonList.searchDesertionNo(desertionNo);//해당 유기번호 동물의 데이터
 String[] addresses = mapAddresChange.geocoding(dateAbandon.getCareAddr()).split(",");// 해당 동물의 보호소의 주소를 좌표값으로 변환하는 함수를 호출하여 x,y 값을 string 배열로 받음
-
-//db연동
-indexCommenysDAO = IndexCommentsDAO.getInstance();
-ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(desertionNo);
+// System.out.println("blog-single.jsp 유기번호 = " + desertionNo);
+// System.out.println("blog-single.jsp 유기번호 = " + commentList.toString());
 %>
 
 
@@ -80,8 +76,22 @@ $(document).ready(function (){
 					desertionNo : <%=desertionNo%>
 			}
 		}).done(function(data){
-			console.log('success')
-			location.reload()
+// 			location.reload()
+			console.log(data)
+			const jsonInfo = JSON.parse(data)
+			let memberInfo=""
+                for(const i in jsonInfo.members) {
+                    memberInfo += '<li class="comment">'
+                    memberInfo += '<div class="vcard bio">'
+                    memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
+                    memberInfo += '</div>'
+                    memberInfo += '<div class="comment-body">'
+                    memberInfo += '<p>' + jsonInfo.members[i].comment+ '</p>'
+                    memberInfo += '<p>'
+                    memberInfo += '<a href="javascript:void(0);" class="reply" id="reply" onclick="fnMove("mkc");">Reply</a>'
+                    memberInfo += '</div></li>'
+                   $('#commentListUL').html(memberInfo)
+                }
 			}).fail(function (Response) {
 				console.log('에러')
             });
@@ -246,11 +256,11 @@ $(document).ready(function (){
 					</div>
 
 
-					<div class="pt-5 mt-5">
+					<div class="pt-5 mt-5" id="ajaxASDiv">
 						<h3 class="mb-5"><%=commentList.size()%>
 							Comments
 						</h3>
-						<ul class="comment-list">
+						<ul class="comment-list" id="commentListUL">
 							<%
 							for (IndexCommentsVO vo : commentList) {
 							%>

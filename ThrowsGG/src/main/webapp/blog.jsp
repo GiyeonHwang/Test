@@ -77,7 +77,7 @@ count = Integer.parseInt(list.get(0).getTotalCount());//api의 전체 데이터 
 						<!-- 이미지 mkc 수정 -->
 							<form id="frm" name="frm" method="get" action="blog-single">
 							     <input type="hidden" id="DesertionNo" name="DesertionNo" value="">
-							     <a href="javascript:void(0);" onclick="goData(<%=list.get(i).getDesertionNo() %>);"
+							     <a href="javascript:void(0);" onclick="goData(<%=list.get(i).getDesertionNo()%>);"
 								class="block-20 rounded"
 								style="height: 400px; background-position: top; background-image: url('<%=list.get(i).getPopfile()%>'); ">
 							</a> 
