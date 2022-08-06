@@ -1,4 +1,9 @@
-<%@page import="javax.xml.crypto.Data"%>
+
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="java.sql.*"%>
+<%@page import="javax.*"%>
 <%@page import="java.lang.reflect.Parameter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -7,19 +12,24 @@
 
 <jsp:useBean id="abandonList" class="gg.AbandonList"></jsp:useBean>
 <jsp:useBean id="mapAddresChange" class="gg.MapAddresChange"
-	scope="page"></jsp:useBean>
+	scope="request"></jsp:useBean>
+<jsp:useBean id="indexCommenysDAO" class="gg.IndexCommentsDAO"
+	scope="request"></jsp:useBean>
 <%
-String desertionNo = request.getParameter("desertionNo");
-DateAbandon dateAbandon = abandonList.searchDesertionNo(desertionNo);
-String[] addresses = mapAddresChange.geocoding(dateAbandon.getCareAddr()).split(",");
-System.out.println(addresses[0] + " " + addresses[1]);
+String desertionNo = request.getParameter("desertionNo");//현재 페이지의 유기동물의 유기번호
+System.out.println("blog-single.jsp = " + desertionNo);
+DateAbandon dateAbandon = abandonList.searchDesertionNo(desertionNo);//해당 유기번호 동물의 데이터
+String[] addresses = mapAddresChange.geocoding(dateAbandon.getCareAddr()).split(",");// 해당 동물의 보호소의 주소를 좌표값으로 변환하는 함수를 호출하여 x,y 값을 string 배열로 받음
+//db연동
+indexCommenysDAO = IndexCommentsDAO.getInstance();
+ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(desertionNo);
 %>
+
 
 <!DOCTYPE html>
 <html lang="kr">
 <head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
 	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap"
 	rel="stylesheet">
@@ -78,7 +88,7 @@ System.out.println(addresses[0] + " " + addresses[1]);
 					</p>
 					<h2 class="mb-3"></h2>
 					<h2 class="mb-3 mt-5">특이사항</h2>
-					<table style="width: 100%;" border= 1px solid black; >
+					<table style="width: 100%;" border=1px solidblack; >
 						<tbody>
 							<tr>
 								<td
@@ -89,7 +99,7 @@ System.out.println(addresses[0] + " " + addresses[1]);
 											style="font-size: 13px;"><br></span>
 									</div></td>
 								<td style="width: 31.7989%; text-align: center;"><div
-										style="text-align: center;"><%=dateAbandon.getKindCd() %></div></td>
+										style="text-align: center;"><%=dateAbandon.getKindCd()%></div></td>
 								<td
 									style="width: 16.82%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
@@ -129,7 +139,7 @@ System.out.println(addresses[0] + " " + addresses[1]);
 											style="font-size: 13px;"><br></span>
 									</div></td>
 								<td style="width: 31.7989%; text-align: center;"><div
-										style="text-align: center;"><%=dateAbandon.getProcessState() %></div></td>
+										style="text-align: center;"><%=dateAbandon.getProcessState()%></div></td>
 								<td
 									style="width: 16.82%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
@@ -147,35 +157,39 @@ System.out.println(addresses[0] + " " + addresses[1]);
 										<span style="color: rgb(255, 255, 255); font-size: 14px;">발견장소</span>
 									</div></td>
 								<td style="width: 31.7989%; text-align: center;"><div
-										style="text-align: center;"><%=dateAbandon.getHappenPlace() %></div></td>
+										style="text-align: center;"><%=dateAbandon.getHappenPlace()%></div></td>
 								<td
 									style="width: 16.82%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
 										<span style="color: rgb(255, 255, 255); font-size: 14px;">특징</span>
 									</div></td>
 								<td style="width: 33.1143%; text-align: center;"><div
-										style="text-align: center;"><%=dateAbandon.getSpecialMark() %></div></td>
+										style="text-align: center;"><%=dateAbandon.getSpecialMark()%></div></td>
 							</tr>
 							<tr>
 								<td
 									style="width: 18.2668%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
-										<span style="color: rgb(255, 255, 255); font-size: 14px;">보호소 이름</span>
+										<span style="color: rgb(255, 255, 255); font-size: 14px;">보호소
+											이름</span>
 									</div></td>
 								<td style="width: 31.7989%; text-align: center;"><div
-										style="text-align: center;"><%=dateAbandon.getCareNm() %></div></td>
+										style="text-align: center;"><%=dateAbandon.getCareNm()%></div></td>
 								<td
 									style="width: 16.82%; background-color: rgb(98, 99, 99); text-align: center;"><div
 										style="text-align: center;">
-										<span style="color: rgb(255, 255, 255); font-size: 14px;">보호소 전화번호</span>
+										<span style="color: rgb(255, 255, 255); font-size: 14px;">보호소
+											전화번호</span>
 									</div></td>
 								<td style="width: 33.1143%; text-align: center;"><div
-										style="text-align: center;"><%=dateAbandon.getCareTel() %></div></td>
+										style="text-align: center;"><%=dateAbandon.getCareTel()%></div></td>
 							</tr>
 						</tbody>
 					</table>
-					<h2 class="mb-3 mt-5 googleft">위치정보</h2>
-					<p>	<div id="map" style="width: 100%; height: 400px;"></div></p>
+					<h2 class="mb-3 mt-5 googleft">보호소 위치정보</h2>
+					<p>
+					<div id="map" style="width: 100%; height: 400px;"></div>
+					</p>
 					<div class="tag-widget post-tag-container mb-5 mt-5">
 						<div class="tagcloud">
 							<a href="#" class="tag-cloud-link">Life</a> <a href="#"
@@ -201,8 +215,13 @@ System.out.println(addresses[0] + " " + addresses[1]);
 
 
 					<div class="pt-5 mt-5">
-						<h3 class="mb-5">6 Comments</h3>
+						<h3 class="mb-5"><%=commentList.size()%>
+							Comments
+						</h3>
 						<ul class="comment-list">
+							<%
+							for (IndexCommentsVO vo : commentList) {
+							%>
 							<li class="comment">
 								<div class="vcard bio">
 									<img src="images/person_1.jpg" alt="Image placeholder">
@@ -210,17 +229,15 @@ System.out.println(addresses[0] + " " + addresses[1]);
 								<div class="comment-body">
 									<h3>John Doe</h3>
 									<div class="meta">April 7, 2020 at 10:05pm</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit. Pariatur quidem laborum necessitatibus, ipsam impedit
-										vitae autem, eum officia, fugiat saepe enim sapiente iste
-										iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+									<p><%=vo.getComment()%></p>
 									<p>
-										<a href="#" class="reply">Reply</a>
-									</p>
+										<button class="reply" id="popOpenBtn">Reply</button>
 								</div>
 							</li>
-
-							<li class="comment">
+							<%
+							}
+							%>
+							<!--  <li class="comment">
 								<div class="vcard bio">
 									<img src="images/person_1.jpg" alt="Image placeholder">
 								</div>
@@ -312,7 +329,7 @@ System.out.println(addresses[0] + " " + addresses[1]);
 										<a href="#" class="reply">Reply</a>
 									</p>
 								</div>
-							</li>
+							</li> -->
 						</ul>
 						<!-- END comment-list -->
 
@@ -320,16 +337,8 @@ System.out.println(addresses[0] + " " + addresses[1]);
 							<h3 class="mb-5">Leave a comment</h3>
 							<form action="#" class="p-5 bg-light">
 								<div class="form-group">
-									<label for="name">Name *</label> <input type="text"
+									<label for="name">NickName *</label> <input type="text"
 										class="form-control" id="name">
-								</div>
-								<div class="form-group">
-									<label for="email">Email *</label> <input type="email"
-										class="form-control" id="email">
-								</div>
-								<div class="form-group">
-									<label for="website">Website</label> <input type="url"
-										class="form-control" id="website">
 								</div>
 
 								<div class="form-group">
@@ -590,7 +599,7 @@ System.out.println(addresses[0] + " " + addresses[1]);
 				stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg>
 	</div>
 
-
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
@@ -606,6 +615,7 @@ System.out.println(addresses[0] + " " + addresses[1]);
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/scrollax.min.js"></script>
 	<script src="js/main.js"></script>
+	<script src="js/mkc_javascript.js"></script>
 	<script>
 
 
@@ -623,9 +633,9 @@ var contentString = [
         '<div class="iw_inner">',
         '   <h4 class="google_ft"><%=dateAbandon.getCareNm()%></h4>',
         '   <p class="google_ft"><%=dateAbandon.getCareAddr()%><br />',
-        '   <%=dateAbandon.getOfficetel()%>', 
-		'   </p>', '</div>'
-		 ].join('');
+        '   <%=dateAbandon.getOfficetel()%>
+		', '   </p>', '</div>' ]
+				.join('');
 
 		var infowindow = new naver.maps.InfoWindow({
 			content : contentString

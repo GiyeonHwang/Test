@@ -26,7 +26,7 @@ public class ApiManagement {
 																														 * Key
 																														 */
 		urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
-				+ URLEncoder.encode("12", "UTF-8")); /* 한 페이지 결과 수(1,000 이하) */
+				+ URLEncoder.encode("6", "UTF-8")); /* 한 페이지 결과 수(1,000 이하) */
 		urlBuilder.append(
 				"&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode(pageNum, "UTF-8")); /* 페이지 번호 */
 		urlBuilder.append("&" + URLEncoder.encode("_type", "UTF-8") + "="
