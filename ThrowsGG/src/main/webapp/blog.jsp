@@ -75,13 +75,14 @@ count = Integer.parseInt(list.get(0).getTotalCount());//api의 전체 데이터 
 				<div class="col-md-4 d-flex ftco-animate">
 					<div class="blog-entry align-self-stretch" style="width: 350px;">
 						<!-- 이미지 mkc 수정 -->
-						<form>
-							<a
-								href="blog-single.jsp?desertionNo=<%=list.get(i).getDesertionNo()%>"
+						<form action="blog-single" id="blogform" method="get">
+							<input type="hidden" value="<%=list.get(i).getDesertionNo()%>" name="getDesertionNo">
+								<a href="blog-single" type="submit"
 								class="block-20 rounded"
 								style="height: 400px; background-position: top; background-image: url('<%=list.get(i).getPopfile()%>'); ">
-							</a>
+							</a> 
 						</form>
+
 
 						<div class="text p-4">
 							<div class="meta mb-2">
