@@ -16,10 +16,11 @@
 <jsp:useBean id="indexCommenysDAO" class="gg.IndexCommentsDAO"
 	scope="request"></jsp:useBean>
 <%
-String desertionNo = request.getParameter("desertionNo");//현재 페이지의 유기동물의 유기번호
-System.out.println("blog-single.jsp = " + desertionNo);
+String desertionNo = (String)request.getAttribute("desertionNo");//현재 페이지의 유기동물의 유기번호
+System.out.println("blog-single.jsp 유기번호 = " + desertionNo);
 DateAbandon dateAbandon = abandonList.searchDesertionNo(desertionNo);//해당 유기번호 동물의 데이터
 String[] addresses = mapAddresChange.geocoding(dateAbandon.getCareAddr()).split(",");// 해당 동물의 보호소의 주소를 좌표값으로 변환하는 함수를 호출하여 x,y 값을 string 배열로 받음
+
 //db연동
 indexCommenysDAO = IndexCommentsDAO.getInstance();
 ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(desertionNo);
@@ -55,7 +56,39 @@ ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(deserti
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=qhzingc5km"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
+<script type="text/javascript">
+
+	$("#buttonSubmit").click(function() { // 제출 버튼 이벤트 지정
+		console.log('ajax 실행');
+	
+<%-- 		<% --%>
+// 		if(id == null){
+<%-- 		%> --%>
+// 		alert("로그인이 필요합니다.");
+// 		location.href='./login.do';
+<%-- 		<% --%>
+// 		}else{
+			
+<%-- 		%> --%>
+		const id = 'mkc';
+		$.ajax({
+			type: "POST", // HTTP Method
+			url: "./blog-single", // 목적지
+			data: {userid : id,
+				   content :$("#messageCM").val()  // 전송 데이터
+			}
+			success:function(res) { // 성공 시 실행
+				console.log('보내기 성공');
+			},
+			error:function(er) { //실패 시 실행
+				alert("실패 원인 : " + er);
+			}
+		});
+	});
+
+</script>
 <body>
 	 <jsp:include page="Nav.jsp"></jsp:include>
 	<!-- END nav -->
@@ -231,7 +264,7 @@ ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(deserti
 									<div class="meta">April 7, 2020 at 10:05pm</div>
 									<p><%=vo.getComment()%></p>
 									<p>
-										<button class="reply" id="popOpenBtn">Reply</button>
+										<a href="javascript:void(0);" class="reply" id="reply" onclick="fnMove('mkc');">Reply</a>
 								</div>
 							</li>
 							<%
@@ -332,26 +365,26 @@ ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(deserti
 							</li> -->
 						</ul>
 						<!-- END comment-list -->
-
-						<div class="comment-form-wrap pt-5">
+<!-- 						코멘트 입력 창 -->
+						<div class="comment-form-wrap pt-5" id="leaveCommFrm">
 							<h3 class="mb-5">Leave a comment</h3>
-							<form action="#" class="p-5 bg-light">
+<!-- 							<form action="#" class="p-5 bg-light" > -->
 								<div class="form-group">
 									<label for="name">NickName *</label> <input type="text"
-										class="form-control" id="name">
+										class="form-control" id="name" value="">
 								</div>
 
 								<div class="form-group">
-									<label for="message">Message</label>
-									<textarea name="" id="message" cols="30" rows="10"
+									<label for="messageCM">Message</label>
+									<textarea name="messageCM" id="messageCM" cols="30" rows="10"
 										class="form-control"></textarea>
 								</div>
 								<div class="form-group">
 									<input type="submit" value="Post Comment"
-										class="btn py-3 px-4 btn-primary">
+										class="btn py-3 px-4 btn-primary" id="buttonSubmit">
 								</div>
 
-							</form>
+<!-- 							</form> -->
 						</div>
 					</div>
 
@@ -615,9 +648,10 @@ ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(deserti
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/scrollax.min.js"></script>
 	<script src="js/main.js"></script>
-	<script src="js/mkc_javascript.js"></script>
-	<script>
+	<script type="text/javascript" src="js/mkc_javascript.js"></script>
 
+<script>
+/*네이버 지도 api 좌표로 맵 마크 표시 함수*/
 
 var cityhall = new naver.maps.LatLng(<%=addresses[0]%>, <%=addresses[1]%>),
     map = new naver.maps.Map('map', {
@@ -633,8 +667,8 @@ var contentString = [
         '<div class="iw_inner">',
         '   <h4 class="google_ft"><%=dateAbandon.getCareNm()%></h4>',
         '   <p class="google_ft"><%=dateAbandon.getCareAddr()%><br />',
-        '   <%=dateAbandon.getOfficetel()%>
-		', '   </p>', '</div>' ]
+        '   <%=dateAbandon.getOfficetel()%>',
+		'   </p>', '</div>' ]
 				.join('');
 
 		var infowindow = new naver.maps.InfoWindow({
@@ -650,7 +684,7 @@ var contentString = [
 		});
 
 		infowindow.open(map, marker);
-	</script>
+</script>
 
 </body>
 </html>

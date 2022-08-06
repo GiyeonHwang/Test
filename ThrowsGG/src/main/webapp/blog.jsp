@@ -75,15 +75,13 @@ count = Integer.parseInt(list.get(0).getTotalCount());//api의 전체 데이터 
 				<div class="col-md-4 d-flex ftco-animate">
 					<div class="blog-entry align-self-stretch" style="width: 350px;">
 						<!-- 이미지 mkc 수정 -->
-						<form action="blog-single" id="blogform" method="get">
-							<input type="hidden" value="<%=list.get(i).getDesertionNo()%>" name="getDesertionNo">
-								<a href="blog-single" type="submit"
+							<form id="frm" name="frm" method="get" action="blog-single">
+							     <input type="hidden" id="DesertionNo" name="DesertionNo" value="">
+							     <a href="javascript:void(0);" onclick="goData(<%=list.get(i).getDesertionNo() %>);"
 								class="block-20 rounded"
 								style="height: 400px; background-position: top; background-image: url('<%=list.get(i).getPopfile()%>'); ">
 							</a> 
-						</form>
-
-
+							</form>
 						<div class="text p-4">
 							<div class="meta mb-2">
 								<div>
@@ -293,5 +291,8 @@ count = Integer.parseInt(list.get(0).getTotalCount());//api의 전체 데이터 
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/scrollax.min.js"></script>
 	<script src="js/main.js"></script>
+	<!-- js 파일 임폴트 할떄 type 적어야됨 안적으면 js파일 함수 호출 불가- mkc -->
+	<script type="text/javascript" src="js/mkc_javascript.js"></script>
+
 </body>
 </html>

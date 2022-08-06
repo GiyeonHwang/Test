@@ -61,6 +61,7 @@ public class MapAddresChange {
 //				System.out.println("address : " + temp.get("roadAddress"));
 //				System.out.println("jibunAddress : " + temp.get("jibunAddress"));
 			String wg = (String) (temp.get("y")) + "," + ((String) (temp.get("x")));
+			System.out.println("네이버 지도 api 좌표 변환 = " + wg);
 			return wg;
 
 		} catch (Exception e) {
