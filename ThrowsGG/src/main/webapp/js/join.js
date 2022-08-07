@@ -32,12 +32,11 @@ var repeatpw = null;
 	var email = document.getElementById('email');
 	var id = document.getElementById('id');
 	var password = repeatpw;
-	alert(password);
+	
 	if(name.checkValidity()&&phoneNum.checkValidity()&&email.checkValidity()&&id.checkValidity()&&password){
-		alert("hi");
-		
+		window.location.href="join.jsp";
 	}else{
-		alert("no");
+		
 	}
 }
 
