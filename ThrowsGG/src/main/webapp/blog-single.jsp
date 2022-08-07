@@ -20,9 +20,8 @@ DateAbandon dateAbandon = abandonList.searchDesertionNo(desertionNo);//해당 �
 String[] addresses = mapAddresChange.geocoding(dateAbandon.getCareAddr()).split(",");// 해당 동물의 보호소의 주소를 좌표값으로 변환하는 함수를 호출하여 x,y 값을 string 배열로 받음
 // System.out.println("blog-single.jsp 유기번호 = " + desertionNo);
 // System.out.println("blog-single.jsp 유기번호 = " + commentList.toString());
+String userID = "mkc";
 %>
-
-
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -88,7 +87,9 @@ $(document).ready(function (){
                     memberInfo += '<div class="comment-body">'
                     memberInfo += '<p>' + jsonInfo.members[i].comment+ '</p>'
                     memberInfo += '<p>'
-                    memberInfo += '<a href="javascript:void(0);" class="reply" id="reply" onclick="fnMove("mkc");">Reply</a>'
+                    memberInfo += '<a href="javascript:void(0);" class="reply" id="reply" onclick="fnMove('
+                    memberInfo += '\'<%=userID%>\''
+                    memberInfo += ');">Reply</a>'
                     memberInfo += '</div></li>'
                    $('#commentListUL').html(memberInfo)
                 }
@@ -130,7 +131,7 @@ $(document).ready(function (){
 					</p>
 					<h2 class="mb-3"></h2>
 					<h2 class="mb-3 mt-5">특이사항</h2>
-					<table style="width: 100%;" border=1px solidblack; >
+					<table style="width: 100%;" border= 1px solidblack; >
 						<tbody>
 							<tr>
 								<td
@@ -230,8 +231,7 @@ $(document).ready(function (){
 					</table>
 					<h2 class="mb-3 mt-5 googleft">보호소 위치정보</h2>
 					<p>
-					<div id="map" style="width: 100%; height: 400px;"></div>
-					</p>
+					<div id="map" style="width: 100%; height: 400px;"></div></p>
 					<div class="tag-widget post-tag-container mb-5 mt-5">
 						<div class="tagcloud">
 							<a href="#" class="tag-cloud-link">Life</a> <a href="#"
@@ -273,7 +273,7 @@ $(document).ready(function (){
 									<div class="meta">April 7, 2020 at 10:05pm</div>
 									<p><%=vo.getComment()%></p>
 									<p>
-										<a href="javascript:void(0);" class="reply" id="reply" onclick="fnMove('mkc');">Reply</a>
+										<a href="javascript:void(0);" class="reply" id="reply" onclick="fnMove('<%=userID%>');">Reply</a>
 								</div>
 							</li>
 							<%
@@ -380,7 +380,7 @@ $(document).ready(function (){
 <!-- 							<form action="#" class="p-5 bg-light" > -->
 								<div class="form-group">
 									<label for="name">NickName *</label> <input type="text"
-										class="form-control" id="name" value="">
+										class="form-control" id="name" value="" readonly="readonly">
 								</div>
 
 								<div class="form-group">

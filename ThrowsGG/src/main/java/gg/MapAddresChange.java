@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 public class MapAddresChange {
+	
 	public String geocoding(String address) {
 		// 주소 입력 -> 위도, 경도 좌표 추출.
 		BufferedReader io = new BufferedReader(new InputStreamReader(System.in));
