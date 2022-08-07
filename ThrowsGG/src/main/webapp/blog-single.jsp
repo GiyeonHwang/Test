@@ -78,10 +78,12 @@ $(document).ready(function (){
 		}).done(function(data){
 // 			location.reload()
 			console.log(data)
-			const jsonInfo = JSON.parse(data)
 			let memberInfo=""
-                for(const i in jsonInfo.members) {
-                    memberInfo += '<li class="comment">'
+				const jsonInfo = JSON.parse(data)
+				console.log(jsonInfo)
+				console.log("데이터있음")
+                for(const i in jsonInfo.members) {         	
+                    memberInfo += '<li class="comment" id="comment">'
                     memberInfo += '<div class="vcard bio">'
                     memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
                     memberInfo += '</div>'
@@ -98,9 +100,10 @@ $(document).ready(function (){
 			}).fail(function (Response) {
 				console.log('에러')
             });
-		});
-	});
+		document.getElementById("messageCM").value='';});
+});
 function Commentdelete(indexCom) { // 제출 버튼 이벤트 지정
+	document.getElementById("messageCM").value='';//입력창 초기화
 	console.log('ajax실행');
 	const commentNum = indexCom;
 	const id = 'mkc';
@@ -115,9 +118,12 @@ function Commentdelete(indexCom) { // 제출 버튼 이벤트 지정
 //			location.reload()
 		console.log(data)
 		const jsonInfo = JSON.parse(data)
+		console.log(jsonInfo)
 		let memberInfo=""
+			if(!(Object.keys(jsonInfo).length == 0)){
+            	console.log("데이터있음")
             for(const i in jsonInfo.members) {
-                memberInfo += '<li class="comment">'
+           			memberInfo += '<li class="comment">'
                     memberInfo += '<div class="vcard bio">'
                     memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
                     memberInfo += '</div>'
@@ -130,11 +136,14 @@ function Commentdelete(indexCom) { // 제출 버튼 이벤트 지정
                             memberInfo += '<button class="reply" id="Del" type="button" onclick="Commentdelete('+jsonInfo.members[i].indexComment+');">Del</button>'
                     memberInfo += '</div></li>'
                    $('#commentListUL').html(memberInfo)
-            }
+            }}else{
+				console.log("데이터없음")
+				$('#commentListUL').html(memberInfo)
+			}
 		}).fail(function (Response) {
 			console.log('에러')
         });
-	}
+	document.getElementById("messageCM").value='';}
 </script>
 <body>
 	 <jsp:include page="Nav.jsp"></jsp:include>

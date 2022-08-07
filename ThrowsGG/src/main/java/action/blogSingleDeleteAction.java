@@ -47,10 +47,17 @@ public class blogSingleDeleteAction implements Action {
 			memberInfo = new JSONObject(myHashMap1);
 			memberArray.add(memberInfo);
 		}
-		totalObject.put("members", memberArray);
-		String jsonInfo = totalObject.toJSONString();
-		out.print(jsonInfo);
-		out.close();
+		if(memberArray.size()!=0) {
+			totalObject.put("members", memberArray);
+			String jsonInfo = totalObject.toJSONString();
+			out.print(jsonInfo);
+			out.close();
+		}else {
+			out.print(false);
+			out.close();
+		}
+
+
 		return null; // foword를 안하기떄문에 null로 값 넘김 - mkc
 	}
 
