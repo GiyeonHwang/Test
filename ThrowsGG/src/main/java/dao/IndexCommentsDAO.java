@@ -101,4 +101,28 @@ public class IndexCommentsDAO {
 			}
 		}
 	}
+	public void deleteComments(int indexComments) {
+		String sql = "DELETE FROM throwsgg.indexcomments WHERE (indexComments = ?)";
+		try {
+			// conn 생성
+			conn = ds.getConnection();
+			// pstmt 생성
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, indexComments);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("연결 실패!");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (pstmt != null)
+					pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

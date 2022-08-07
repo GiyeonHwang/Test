@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.blogSingleDeleteAction;
 import action.blogSingleInsertAction;
 import action.idCheckAction;
 import vo.ActionForward;
@@ -42,7 +43,14 @@ public class FrontController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+		}else if (command.equals("/blog-singleDelete.do")) {
+			action = new blogSingleDeleteAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
 		if (forward != null) {
 
 			if (forward.isRedirect()) {

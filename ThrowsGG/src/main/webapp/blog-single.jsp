@@ -88,9 +88,10 @@ $(document).ready(function (){
                     memberInfo += '<div class="comment-body">'
                     memberInfo += '<p>' + jsonInfo.members[i].comment+ '</p>'
                     memberInfo += '<p>'
-                    memberInfo += '<a href="javascript:void(0);" class="reply" id="reply" onclick="fnMove('
+                    memberInfo += '<button class="reply" id="reply" onclick="fnMove('
                     memberInfo += '\'<%=userID%>\''
-                    memberInfo += ');">Reply</a>'
+                    memberInfo += ');" type="button" >Reply</button>'
+                    memberInfo += '<button class="reply" id="Del" type="button" onclick="Commentdelete('+jsonInfo.members[i].indexComment+');">Del</button>'
                     memberInfo += '</div></li>'
                    $('#commentListUL').html(memberInfo)
                 }
@@ -99,6 +100,41 @@ $(document).ready(function (){
             });
 		});
 	});
+function Commentdelete(indexCom) { // 제출 버튼 이벤트 지정
+	console.log('ajax실행');
+	const commentNum = indexCom;
+	const id = 'mkc';
+	$.ajax({
+		type: "POST", // HTTP Method
+		url: "blog-singleDelete.do", // 목적지
+		data: {userid : id,			   // 전송 데이터
+				desertionNo : <%=desertionNo%>,
+				indexComments:commentNum
+		}
+	}).done(function(data){
+//			location.reload()
+		console.log(data)
+		const jsonInfo = JSON.parse(data)
+		let memberInfo=""
+            for(const i in jsonInfo.members) {
+                memberInfo += '<li class="comment">'
+                    memberInfo += '<div class="vcard bio">'
+                    memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
+                    memberInfo += '</div>'
+                    memberInfo += '<div class="comment-body">'
+                    memberInfo += '<p>' + jsonInfo.members[i].comment+ '</p>'
+                    memberInfo += '<p>'
+                    memberInfo += '<button class="reply" id="reply" onclick="fnMove('
+                    memberInfo += '\'<%=userID%>\''
+                        memberInfo += ');" type="button" >Reply</button>'
+                            memberInfo += '<button class="reply" id="Del" type="button" onclick="Commentdelete('+jsonInfo.members[i].indexComment+');">Del</button>'
+                    memberInfo += '</div></li>'
+                   $('#commentListUL').html(memberInfo)
+            }
+		}).fail(function (Response) {
+			console.log('에러')
+        });
+	}
 </script>
 <body>
 	 <jsp:include page="Nav.jsp"></jsp:include>
@@ -274,7 +310,8 @@ $(document).ready(function (){
 									<div class="meta">April 7, 2020 at 10:05pm</div>
 									<p><%=vo.getComment()%></p>
 									<p>
-										<a href="javascript:void(0);" class="reply" id="reply" onclick="fnMove('<%=userID%>');">Reply</a>
+										<button class="reply" id="reply" onclick="fnMove('<%=userID%>');" type="button" >Reply</button>
+										<button class="reply" id="Del" value="<%=vo.getIndexComments() %>" onclick="Commentdelete(<%=vo.getIndexComments() %>);" type="button" >Del</button>
 								</div>
 							</li>
 							<%

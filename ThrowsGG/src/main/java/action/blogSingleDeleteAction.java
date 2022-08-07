@@ -14,7 +14,7 @@ import dao.IndexCommentsDAO;
 import vo.ActionForward;
 import vo.IndexCommentsVO;
 
-public class blogSingleInsertAction implements Action {
+public class blogSingleDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -26,20 +26,20 @@ public class blogSingleInsertAction implements Action {
 		// 배열을 저장할 totalObject
 		JSONObject totalObject = new JSONObject();
 		JSONObject memberInfo = null;
-		JSONArray memberArray = new JSONArray();
 		// memberInfo JSON 객체를 저장할 배열
+		JSONArray memberArray = new JSONArray();
+		IndexCommentsDAO indexCommenysDAO = IndexCommentsDAO.getInstance();
 		System.out.println("blogSingleServlet : servlet호출 post 방식");
 		response.setCharacterEncoding("UTF-8");
 		String userid = request.getParameter("userid");
 		System.out.println("blogSingleServlet  userid = " + userid);
-		String content = request.getParameter("content");
-		System.out.println("blogSingleServlet  content = " + content);
+		int indexComments = Integer.parseInt(request.getParameter("indexComments"));
+		System.out.println("blogSingleServlet  content = " + indexComments);
 		String desertionNo = request.getParameter("desertionNo");
 		System.out.println("blogSingleServlet  desertionNo = " + desertionNo);
-		IndexCommentsDAO indexCommenysDAO = IndexCommentsDAO.getInstance();
 		IndexCommentsDAO instance = IndexCommentsDAO.getInstance();
-		instance.insertComments(content, userid, desertionNo);//db insert 함수 실행
-		ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(desertionNo);//변경된 db의 데이터를 select
+		instance.deleteComments(indexComments); // db
+		ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(desertionNo);
 		for (IndexCommentsVO vo : commentList) {
 			myHashMap1.put("userID", vo.getUserID());
 			myHashMap1.put("comment", vo.getComment());
@@ -51,7 +51,7 @@ public class blogSingleInsertAction implements Action {
 		String jsonInfo = totalObject.toJSONString();
 		out.print(jsonInfo);
 		out.close();
-		return null; //foword를 안하기떄문에 null로 값 넘김 - mkc
+		return null; // foword를 안하기떄문에 null로 값 넘김 - mkc
 	}
 
 }
