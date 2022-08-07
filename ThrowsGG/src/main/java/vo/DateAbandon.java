@@ -1,4 +1,4 @@
-package gg;
+package vo;
 
 public class DateAbandon {
 	private String desertionNo; // 유기번호

@@ -1,4 +1,4 @@
-package gg;
+package vo;
 
 public class IndexCommentsVO {
 	private int indexComments;

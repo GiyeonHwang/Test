@@ -7,10 +7,11 @@
 <%@page import="java.lang.reflect.Parameter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="vo.*"%>
 <%@page import="gg.*"%>
 <%@page import="java.util.*"%>
 
-<jsp:useBean id="abandonList" class="gg.AbandonList"></jsp:useBean>
+<jsp:useBean id="abandonList" class="vo.AbandonList"></jsp:useBean>
 <jsp:useBean id="mapAddresChange" class="gg.MapAddresChange"
 	scope="request"></jsp:useBean>
 <%
@@ -69,7 +70,7 @@ $(document).ready(function (){
 		const id = 'mkc';
 		$.ajax({
 			type: "POST", // HTTP Method
-			url: "./blog-single", // 목적지
+			url: "blog-singleInsert.do", // 목적지
 			data: {userid : id,			   // 전송 데이터
 				   content :$("#messageCM").val(),
 					desertionNo : <%=desertionNo%>

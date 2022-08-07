@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@page import="vo.*"%>
+<%@page import="gg.*"%>
+<%@page import="gg.*"%>
 <%@page import="gg.*"%>
 <%@page import="java.util.*"%>
 <%

@@ -1,4 +1,4 @@
-package gg;
+package vo;
 
 import java.util.ArrayList;
 
