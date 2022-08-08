@@ -1,4 +1,4 @@
-
+package ajaxtest;
 public class MemberVO {
 private String id;
 

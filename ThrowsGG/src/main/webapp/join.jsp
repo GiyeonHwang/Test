@@ -302,11 +302,7 @@ main {
 			</div>
 		</div>
 	</main>
-	<!-- YOUR WORK HERE -->
-	<script src="js/telcheck.js"></script>
-	<script src="js/login-check.js"></script>
-	<script src="js/repeat-password.js"></script>
-	<script src="js/join.js"></script>
+	
 	<!-- Prism -->
 
 	<script type="text/javascript"
@@ -337,35 +333,13 @@ main {
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
 
-
-	<!-- id 중복 확인 체크  -->
-	<script type="text/javascript">
-//     아이디와 비밀번호가 맞지 않을 경우 가입버튼 비활성화를 위한 변수설정
-    //아이디 체크하여 가입버튼 비활성화, 중복확인.
-    document.getElementById('id-success').style.display = 'none';
-	document.getElementById('id-danger').style.display = 'none';
-    $("#id").keyup(function checkId() {
-        var inputed = $('#id').val();
-        $.ajax({
-        	type:"POST",
-            url : "./checkid",
-            dataType:"text",
-            data : inputed,
-        }).done(function(data) {
-                if(inputed=="" && data==0) {
-                    alert("gggg");
-                } else if (data == 0) {
-                    alert("gg");
-                } else if (data == 1) {
-                    alert("gggggggg");
-                } 
-            }).error(function(data){
-            	alert(inputed+"error~~~!!!!")
-            })
-        });
-
-
-    </script>
+<!-- YOUR WORK HERE -->
+	<script src="js/telcheck.js"></script>
+	<script src="js/login-check.js"></script>
+	<script src="js/repeatPW.js"></script>
+	<script src="js/idoverlapcheck.js"></script>
+	<script src="js/join.js"></script>
+	
 
 </body>
 
