@@ -55,95 +55,188 @@ String userID = "mkc";
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <script type="text/javascript">
-$(document).ready(function (){
-	$("input[name='buttonSubmit']").click(function() { // 제출 버튼 이벤트 지정
-		console.log('ajax실행');
-		<%-- 		<% --%>
-		// 		if(id == null){
-		<%-- 		%> --%>
-		// 		alert("로그인이 필요합니다.");
-		// 		location.href='./login.do';
-		<%-- 		<% --%>
-		// 		}else{
-					
-		<%-- 		%> --%>
-		const id = 'mkc';
-		$.ajax({
-			type: "POST", // HTTP Method
-			url: "blog-singleInsert.do", // 목적지
-			data: {userid : id,			   // 전송 데이터
-				   content :$("#messageCM").val(),
-					desertionNo : <%=desertionNo%>
-			}
-		}).done(function(data){
-// 			location.reload()
-			console.log(data)
-			let memberInfo=""
-				const jsonInfo = JSON.parse(data)
-				console.log(jsonInfo)
-				console.log("데이터있음")
-                for(const i in jsonInfo.members) {         	
-                    memberInfo += '<li class="comment" id="comment">'
-                    memberInfo += '<div class="vcard bio">'
-                    memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
-                    memberInfo += '</div>'
-                    memberInfo += '<div class="comment-body">'
-                    memberInfo += '<p>' + jsonInfo.members[i].comment+ '</p>'
-                    memberInfo += '<p>'
-                    memberInfo += '<button class="reply" id="reply" onclick="fnMove('
-                    memberInfo += '\'<%=userID%>\''
-                    memberInfo += ');" type="button" >Reply</button>'
-                    memberInfo += '<button class="reply" id="Del" type="button" onclick="Commentdelete('+jsonInfo.members[i].indexComment+');">Del</button>'
-                    memberInfo += '</div></li>'
-                   $('#commentListUL').html(memberInfo)
-                }
-			}).fail(function (Response) {
-				console.log('에러')
-            });
-		document.getElementById("messageCM").value='';});
+$(document).ready(function() {//입력폼 글자수 제한 300
+    $('#messageCM').on('keyup', function() {
+        $('#test_cnt').html("("+$(this).val().length+" / 300)");
+ 
+        if($(this).val().length > 300) {
+            $(this).val($(this).val().substring(0, 300));
+            $('#test_cnt').html("(300 / 300)");
+        }
+    });
 });
-function Commentdelete(indexCom) { // 제출 버튼 이벤트 지정
-	document.getElementById("messageCM").value='';//입력창 초기화
-	console.log('ajax실행');
-	const commentNum = indexCom;
-	const id = 'mkc';
-	$.ajax({
-		type: "POST", // HTTP Method
-		url: "blog-singleDelete.do", // 목적지
-		data: {userid : id,			   // 전송 데이터
-				desertionNo : <%=desertionNo%>,
-				indexComments:commentNum
-		}
-	}).done(function(data){
-//			location.reload()
-		console.log(data)
-		const jsonInfo = JSON.parse(data)
-		console.log(jsonInfo)
-		let memberInfo=""
-			if(!(Object.keys(jsonInfo).length == 0)){
-            	console.log("데이터있음")
-            for(const i in jsonInfo.members) {
-           			memberInfo += '<li class="comment">'
-                    memberInfo += '<div class="vcard bio">'
-                    memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
-                    memberInfo += '</div>'
-                    memberInfo += '<div class="comment-body">'
-                    memberInfo += '<p>' + jsonInfo.members[i].comment+ '</p>'
-                    memberInfo += '<p>'
-                    memberInfo += '<button class="reply" id="reply" onclick="fnMove('
-                    memberInfo += '\'<%=userID%>\''
-                        memberInfo += ');" type="button" >Reply</button>'
-                            memberInfo += '<button class="reply" id="Del" type="button" onclick="Commentdelete('+jsonInfo.members[i].indexComment+');">Del</button>'
-                    memberInfo += '</div></li>'
-                   $('#commentListUL').html(memberInfo)
-            }}else{
-				console.log("데이터없음")
-				$('#commentListUL').html(memberInfo)
-			}
-		}).fail(function (Response) {
-			console.log('에러')
-        });
-	document.getElementById("messageCM").value='';}
+function CommentInsert() { // 제출 버튼 이벤트 지정
+    console.log('InsertAjax'); 
+//     <
+//     % -- < % -- % >
+//     // 		if(id == null){
+//     <
+//     % -- % > -- % >
+//     // 		alert("로그인이 필요합니다.");
+//     // 		location.href='./login.do';
+//     <
+//     % -- < % -- % >
+//     // 		}else{
+
+//     <
+//     % -- % > -- % >
+    const id = 'mkc';
+    $.ajax({
+        type: "POST", // HTTP Method
+        url: "blog-singleInsert.bgs", // 목적지
+        data: {
+            userid: id, // 전송 데이터
+            content: $("#messageCM").val(),
+            desertionNo: <%=desertionNo%>
+        }
+    }).done(function(data) {
+        // 			location.reload()
+        console.log(data)
+        let memberInfo = ""
+        const jsonInfo = JSON.parse(data)
+        console.log(jsonInfo)
+        console.log("데이터있음")
+        for (const i in jsonInfo.members) {
+            const comment = jsonInfo.members[i].comment;
+            const indexComment = jsonInfo.members[i].indexComment;
+            const userID = jsonInfo.members[i].userID;
+            const regist_date = jsonInfo.members[i].regist_date;
+            memberInfo += '<li class="comment" id="comment">'
+            memberInfo += '<div class="vcard bio">'
+            memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
+            memberInfo += '</div>'
+           	memberInfo += '<h3>'+ userID +'</h3>'
+            memberInfo += '<div class="comment-body">'
+            memberInfo += '<div class="meta">'+regist_date+'</div>'
+            memberInfo += '<p>' + comment + '</p>'
+            memberInfo += '<p>'
+            memberInfo += '<button class="reply" id="reply" onclick="fnMove('
+            memberInfo += '\'<%=userID%>\''
+            memberInfo += ');" type="button" >Reply</button>'
+            memberInfo += '<button class="reply" id="Del" value=' + indexComment + ' type="button" onclick="CommentdDelete(this);">Del</button>'
+            memberInfo += '<button class="reply" id="modify" type="button"  value=' + indexComment + ' onclick = "CommentModify(this,&quot;' + userID + '&quot;,&quot;' + comment + '&quot;);">Modify</button>'
+            memberInfo += '</div></li>'
+            $('#commentListUL').html(memberInfo)
+        }
+    }).fail(function(Response) {
+        console.log('에러')
+    });
+    document.getElementById("messageCM").value = '';
+};
+
+function CommentdDelete(objButton) { // 제출 버튼 이벤트 지정
+    console.log('CommentdDelete');
+    const commentNum = objButton.value; //눌러진 버튼의 value값
+    const id = 'mkc';
+    $.ajax({
+        type: "POST", // HTTP Method
+        url: "blog-singleDelete.bgs", // 목적지
+        data: {
+            userid: id, // 전송 데이터
+            desertionNo: <%=desertionNo%> ,
+            indexComments: commentNum
+        }
+    }).done(function(data) {
+        console.log(data)
+        const jsonInfo = JSON.parse(data);
+        console.log(jsonInfo)
+        let memberInfo = ""
+        if (!(Object.keys(jsonInfo).length == 0)) {
+            console.log("데이터있음")
+            for (const i in jsonInfo.members) {
+                const comment = jsonInfo.members[i].comment;
+                const indexComment = jsonInfo.members[i].indexComment;
+                const userID = jsonInfo.members[i].userID;
+                const regist_date = jsonInfo.members[i].regist_date;
+                memberInfo += '<li class="comment" id="comment">'
+                memberInfo += '<div class="vcard bio">'
+                memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
+                memberInfo += '</div>'
+               	memberInfo += '<h3>'+ userID +'</h3>'
+                memberInfo += '<div class="comment-body">'
+                memberInfo += '<div class="meta">'+regist_date+'</div>'
+                memberInfo += '<p>' + comment + '</p>'
+                memberInfo += '<p>'
+                memberInfo += '<button class="reply" id="reply" onclick="fnMove('
+                memberInfo += '\'<%=userID%>\''
+                memberInfo += ');" type="button" >Reply</button>'
+                memberInfo += '<button class="reply" id="Del" value=' + indexComment + ' type="button" onclick="CommentdDelete(this);">Del</button>'
+                memberInfo += '<button class="reply" id="modify" type="button"  value=' + indexComment + ' onclick = "CommentModify(this,&quot;' + userID + '&quot;,&quot;' + comment + '&quot;);">Modify</button>'
+                memberInfo += '</div></li>'
+                $('#commentListUL').html(memberInfo)
+            }
+        } else {
+            console.log("데이터없음")
+            $('#commentListUL').html(memberInfo)
+        }
+    }).fail(function(Response) {
+        console.log('에러')
+    });
+    document.getElementById("messageCM").value = '';
+}
+
+function CommentModify(objButton, userID, comments) { // 입력 폼에 현재 입력된 내용 표시와 버튼의 onclick 호출 내용변경
+    console.log('CommentModify');
+    const commentNum = objButton.value;
+    const id = 'mkc';
+    console.log(comments);
+    $("#messageCM").val(comments); //입력폼에 입력되었던 내용을 set
+    //  	$("#buttonSubmit").attr("onclick", "functionAddBtn('N');"); // 온클릭 속성을 다시부여
+    $("#buttonSubmit").removeAttr("onclick"); // 온클릭 속성을 삭제
+    $('#buttonSubmit').attr('onclick', 'modifyButton(' + commentNum + ');'); // 온클릭 속성을 다시부여
+}
+
+function modifyButton(commentNum) { //수정버튼 클릭시 호출 메서드
+    const id = 'mkc'; //후에 세션 아이디로 대체
+    $.ajax({
+        type: "POST", // HTTP Method
+        url: "blog-singleModify.bgs", // 목적지
+        data: { // 전송 데이터
+            userid: id,
+            desertionNo: <%=desertionNo%> ,
+            Comments: $("#messageCM").val(),
+            indexComments: commentNum
+        }
+    }).done(function(data) {
+        //			location.reload()
+        console.log(data)
+        const jsonInfo = JSON.parse(data)
+        console.log(jsonInfo)
+        let memberInfo = ""
+        if (!(Object.keys(jsonInfo).length == 0)) {
+            console.log("데이터있음")
+            for (const i in jsonInfo.members) {
+                const comment = jsonInfo.members[i].comment;
+                const indexComment = jsonInfo.members[i].indexComment;
+                const userID = jsonInfo.members[i].userID;
+                const regist_date = jsonInfo.members[i].regist_date;
+                memberInfo += '<li class="comment" id="comment">'
+                memberInfo += '<div class="vcard bio">'
+                memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
+                memberInfo += '</div>'
+               	memberInfo += '<h3>'+ userID +'</h3>'
+                memberInfo += '<div class="comment-body">'
+                memberInfo += '<div class="meta">'+regist_date+'</div>'
+                memberInfo += '<p>' + comment + '</p>'
+                memberInfo += '<p>'
+                memberInfo += '<button class="reply" id="reply" onclick="fnMove('
+                memberInfo += '\'<%=userID%>\''
+                memberInfo += ');" type="button" >Reply</button>'
+                memberInfo += '<button class="reply" id="Del" value=' + indexComment + ' type="button" onclick="CommentdDelete(this);">Del</button>'
+                memberInfo += '<button class="reply" id="modify" type="button"  value=' + indexComment + ' onclick = "CommentModify(this,&quot;' + userID + '&quot;,&quot;' + comment + '&quot;);">Modify</button>'
+                memberInfo += '</div></li>'
+                $('#commentListUL').html(memberInfo)
+            }
+        } else {
+            console.log("데이터없음")
+            $('#commentListUL').html(memberInfo)
+        }
+    }).fail(function(Response) {
+        console.log('에러')
+    });
+    document.getElementById("messageCM").value = '';//수정훔 입력폼 비우기
+    $("#buttonSubmit").removeAttr("onclick"); // 온클릭 속성을 삭제
+    $('#buttonSubmit').attr('onclick', 'CommentInsert();')} // 수정 후 수정버튼을 다시 입력버튼으로 수정
 </script>
 <body>
 	 <jsp:include page="Nav.jsp"></jsp:include>
@@ -315,12 +408,13 @@ function Commentdelete(indexCom) { // 제출 버튼 이벤트 지정
 									<img src="images/person_1.jpg" alt="Image placeholder">
 								</div>
 								<div class="comment-body">
-									<h3>John Doe</h3>
-									<div class="meta">April 7, 2020 at 10:05pm</div>
+									<h3><%=vo.getUserID() %></h3>
+									<div class="meta"><%=vo.getRegist_date() %></div>
 									<p><%=vo.getComment()%></p>
 									<p>
 										<button class="reply" id="reply" onclick="fnMove('<%=userID%>');" type="button" >Reply</button>
-										<button class="reply" id="Del" value="<%=vo.getIndexComments() %>" onclick="Commentdelete(<%=vo.getIndexComments() %>);" type="button" >Del</button>
+										<button class="reply" id="Del" value="<%=vo.getIndexComments()%>"  onclick="CommentdDelete(this);" type="button" >Del</button>
+										<button class="reply" id="modify" value="<%=vo.getIndexComments()%>"   onclick="CommentModify(this,'<%=userID%>','<%=vo.getComment()%>');" type="button" >Modify</button>
 								</div>
 							</li>
 							<%
@@ -435,9 +529,10 @@ function Commentdelete(indexCom) { // 제출 버튼 이벤트 지정
 									<textarea name="messageCM" id="messageCM" cols="30" rows="10"
 										class="form-control"></textarea>
 								</div>
+								<div id="test_cnt">(0 / 300)</div>
 								<div class="form-group">
 									<input type="button" value="Post Comment"
-										class="btn py-3 px-4 btn-primary" name="buttonSubmit">
+										class="btn py-3 px-4 btn-primary" name="buttonSubmit" id="buttonSubmit" onclick="CommentInsert();">
 								</div>
 
 <!-- 							</form> -->

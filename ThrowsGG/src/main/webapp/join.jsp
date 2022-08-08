@@ -348,7 +348,7 @@ main {
         var inputed = $('#id').val();
         $.ajax({
         	type:"POST",
-            url : "checkid.do",
+            url : "checkid.lg",
             dataType:"text",
             data : inputed,
         }).done(function(data) {

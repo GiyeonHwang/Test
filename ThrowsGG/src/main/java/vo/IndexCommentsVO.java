@@ -8,9 +8,12 @@ public class IndexCommentsVO {
 	private int groupNum;
 	private int sequence;
 	private String userID;
+	private String regist_date;
+
+
 
 	public IndexCommentsVO(int indexComments, String comment, String desertionNo, int classNum, int groupNum,
-			int sequence, String userID) {
+			int sequence, String userID, String regist_date) {
 		super();
 		this.indexComments = indexComments;
 		this.comment = comment;
@@ -19,6 +22,15 @@ public class IndexCommentsVO {
 		this.groupNum = groupNum;
 		this.sequence = sequence;
 		this.userID = userID;
+		this.regist_date = regist_date;
+	}
+
+	public String getRegist_date() {
+		return regist_date;
+	}
+
+	public void setRegist_date(String regist_date) {
+		this.regist_date = regist_date;
 	}
 
 	public int getIndexComments() {

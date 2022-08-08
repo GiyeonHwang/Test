@@ -18,7 +18,7 @@ public class blogSingleInsertAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("test_doMapping02");
+		System.out.println("blogSingleInsertAction");
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		HashMap<String, String> myHashMap1 = new HashMap<String, String>();
@@ -28,22 +28,17 @@ public class blogSingleInsertAction implements Action {
 		JSONObject memberInfo = null;
 		JSONArray memberArray = new JSONArray();
 		// memberInfo JSON 객체를 저장할 배열
-		System.out.println("blogSingleServlet : servlet호출 post 방식");
-		response.setCharacterEncoding("UTF-8");
 		String userid = request.getParameter("userid");
-		System.out.println("blogSingleServlet  userid = " + userid);
 		String content = request.getParameter("content");
-		System.out.println("blogSingleServlet  content = " + content);
 		String desertionNo = request.getParameter("desertionNo");
-		System.out.println("blogSingleServlet  desertionNo = " + desertionNo);
-		IndexCommentsDAO indexCommenysDAO = IndexCommentsDAO.getInstance();
-		IndexCommentsDAO instance = IndexCommentsDAO.getInstance();
+		IndexCommentsDAO instance = IndexCommentsDAO.getInstance();//db 인스턴스 생성
 		instance.insertComments(content, userid, desertionNo);//db insert 함수 실행
-		ArrayList<IndexCommentsVO> commentList = indexCommenysDAO.selectComments(desertionNo);//변경된 db의 데이터를 select
+		ArrayList<IndexCommentsVO> commentList = instance.selectComments(desertionNo);//변경된 db의 데이터를 select
 		for (IndexCommentsVO vo : commentList) {
 			myHashMap1.put("userID", vo.getUserID());
 			myHashMap1.put("comment", vo.getComment());
 			myHashMap1.put("indexComment", Integer.toString(vo.getIndexComments()));
+			myHashMap1.put("regist_date", vo.getRegist_date());
 			memberInfo = new JSONObject(myHashMap1);
 			memberArray.add(memberInfo);
 		}

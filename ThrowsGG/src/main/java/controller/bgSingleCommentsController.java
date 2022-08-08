@@ -12,45 +12,48 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.blogSingleDeleteAction;
 import action.blogSingleInsertAction;
+import action.blogSingleModifyAction;
 import action.idCheckAction;
 import vo.ActionForward;
 
 /**
  * Servlet implementation class FrontController
  */
-@WebServlet("*.do")
-public class FrontController extends HttpServlet {
+@WebServlet("*.bgs")
+public class bgSingleCommentsController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("test_doMapping01");
+		System.out.println("bgSingleCommentsController");
 		request.setCharacterEncoding("UTF-8");
 		String RequestURI = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String command = RequestURI.substring(contextPath.length());
 		ActionForward forward = null;
 		Action action = null;
-		if (command.equals("/blog-singleInsert.do")) {
+		if (command.equals("/blog-singleInsert.bgs")) {
 			action = new blogSingleInsertAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if (command.equals("/checkid.do")) {
-			action = new idCheckAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else if (command.equals("/blog-singleDelete.do")) {
+		} else if (command.equals("/blog-singleDelete.bgs")) {
 			action = new blogSingleDeleteAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} 
+		} else if (command.equals("/blog-singleModify.bgs")) {
+			action = new blogSingleModifyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		if (forward != null) {
 
 			if (forward.isRedirect()) {

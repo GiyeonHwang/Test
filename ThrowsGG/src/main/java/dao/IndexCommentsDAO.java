@@ -51,7 +51,7 @@ public class IndexCommentsDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				IndexCommentsVO vo = new IndexCommentsVO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4),
-						rs.getInt(5), rs.getInt(6), rs.getString(7));
+						rs.getInt(5), rs.getInt(6), rs.getString(7),rs.getString(8));
 				dataList.add(vo);
 			}
 
@@ -74,7 +74,7 @@ public class IndexCommentsDAO {
 
 	}
 
-	public void insertComments(String comments, String userID,String desertionNo ) {
+	public void insertComments(String comments, String userID, String desertionNo) {
 		String sql = "INSERT INTO throwsgg.indexcomments (comment, desertionNo, classNum, groupNum, sequence, userID) "
 				+ "VALUES (?, ?, 0, 0, 0, ?)";
 		try {
@@ -101,6 +101,7 @@ public class IndexCommentsDAO {
 			}
 		}
 	}
+
 	public void deleteComments(int indexComments) {
 		String sql = "DELETE FROM throwsgg.indexcomments WHERE (indexComments = ?)";
 		try {
@@ -110,7 +111,33 @@ public class IndexCommentsDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, indexComments);
 			pstmt.executeUpdate();
-			
+
+		} catch (Exception e) {
+			System.out.println("연결 실패!");
+			e.printStackTrace();
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+				if (pstmt != null)
+					pstmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void ModifyComments(String comments, String indexComments) {
+		String sql = "UPDATE throwsgg.indexcomments SET comment = ? WHERE (indexComments = ?)";
+		try {
+			// conn 생성
+			conn = ds.getConnection();
+			// pstmt 생성
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, comments);
+			pstmt.setInt(2, Integer.parseInt(indexComments));
+			pstmt.executeUpdate();
+			System.out.println("indexComments 수정 완료");
 		} catch (Exception e) {
 			System.out.println("연결 실패!");
 			e.printStackTrace();
