@@ -28,14 +28,14 @@
 				}).done(function(data){
 					alert("done");
 					if(data == true){
-						alert("insert");
+						window.location.href="welcome.jsp";
 					}else{
 						
 					}
 				}).error(function(data){
-					alert("fail");
+					alert("가입 실패");
 			})
-//		window.location.href="join.jsp";
+
 	}else{
 		
 	}
