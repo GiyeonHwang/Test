@@ -154,6 +154,7 @@ main {
 									<!-- Pills navs -->
 
 									<!-- Pills content -->
+									<!-- 로그인 시작 -->
 									<div class="tab-content">
 										<div class="tab-pane fade show active" id="pills-login"
 											role="tabpanel" aria-labelledby="tab-login">
@@ -161,9 +162,8 @@ main {
 
 												<!-- Email input -->
 												<div class="form-outline mb-4">
-													<input type="email" id="loginName" class="form-control" />
-													<label class="form-label" for="loginName">Email or
-														username</label>
+													<input type="text" id="loginid" class="form-control" />
+													<label class="form-label" for="loginName">id</label>
 												</div>
 
 												<!-- Password input -->
@@ -192,9 +192,9 @@ main {
 												</div>
 
 												<!-- Submit button -->
-												<button type="submit" class="btn btn-primary btn-block mb-4">Sign
+												<button type="submit" onclick=signup() class="btn btn-primary btn-block mb-4">Sign
 													in</button>
-
+<!-- 로그인 부분 끝 -->
 												<!-- 회원 가입 부분 -->
 												<!-- Register buttons -->
 												<div class="text-center">
@@ -339,6 +339,7 @@ main {
 	<script src="js/repeatPW.js"></script>
 	<script src="js/idoverlapcheck.js"></script>
 	<script src="js/join.js"></script>
+	<script src="js/signup.js"></script>
 	
 
 </body>
