@@ -48,7 +48,7 @@ count = Integer.parseInt(list.get(0).getTotalCount());//api의 전체 데이터 
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	 <jsp:include page="Nav.jsp"></jsp:include>
+<jsp:include page="Nav.jsp"></jsp:include>
 	<!-- END nav -->
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('images/bg_2.jpg');"
@@ -78,7 +78,7 @@ count = Integer.parseInt(list.get(0).getTotalCount());//api의 전체 데이터 
 				<div class="col-md-4 d-flex ftco-animate">
 					<div class="blog-entry align-self-stretch" style="width: 350px;">
 						<!-- 이미지 mkc 수정 -->
-							<form id="frm" name="frm" method="get" action="blog-single">
+							<form id="frm" name="frm" method="get" action="blog-single.bgs">
 							     <input type="hidden" id="DesertionNo" name="DesertionNo" value="">
 							     <a href="javascript:void(0);" onclick="goData(<%=list.get(i).getDesertionNo()%>);"
 								class="block-20 rounded"

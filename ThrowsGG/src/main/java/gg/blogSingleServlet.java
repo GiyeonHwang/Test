@@ -22,7 +22,7 @@ import vo.IndexCommentsVO;
 /**
  * Servlet implementation class blogSingleServlet
  */
-@WebServlet("/blog-single")
+@WebServlet("/blog-single123")
 public class blogSingleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

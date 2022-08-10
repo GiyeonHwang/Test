@@ -2,7 +2,7 @@
 <%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="ajaxtest.*" %>
+<%@ page import="ajaxtest.*"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,63 +66,8 @@ main {
 <body data-mdb-spy="scroll" data-mdb-target="#scrollspy1"
 	data-mdb-offset="1" class="scrollspy-example">
 	<!-- YOUR WORK HERE -->
-	<div class="wrap">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 d-flex align-items-center">
-					<p class="mb-0 phone pl-md-2">
-						<a href="#" class="mr-2"><span class="fa fa-phone mr-1"></span>
-							010 1234 567</a> <a href="#"><span class="fa fa-paper-plane mr-1"></span>
-							youremail@email.com</a>
-					</p>
-				</div>
-				<div class="col-md-6 d-flex justify-content-md-end">
-					<div class="social-media">
-						<p class="mb-0 d-flex">
-							<a href="join.html"
-								class="d-flex align-items-center justify-content-center"><span
-								class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a> <a
-								href="#"
-								class="d-flex align-items-center justify-content-center"><span
-								class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a> <a
-								href="#"
-								class="d-flex align-items-center justify-content-center"><span
-								class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
-							<a href="#"
-								class="d-flex align-items-center justify-content-center"><span
-								class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
-		<div class="container">
-			<a class="navbar-brand" href="index.html"><span
-				class="flaticon-pawprint-1 mr-2"></span>Pet sitting</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#ftco-nav" aria-controls="ftco-nav"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="fa fa-bars"></span> Menu
-			</button>
-			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active"><a href="index.html"
-						class="nav-link">Home</a></li>
-					<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-					<li class="nav-item"><a href="vet.html" class="nav-link">Veterinarian</a></li>
-					<li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-					<li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
-					<li class="nav-item"><a href="pricing.html" class="nav-link">Pricing</a></li>
-					<li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-					<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+	<jsp:include page="Nav.jsp"></jsp:include>
+
 	<main>
 		<div class="container my-5">
 			<div class="row">
@@ -158,55 +103,59 @@ main {
 									<div class="tab-content">
 										<div class="tab-pane fade show active" id="pills-login"
 											role="tabpanel" aria-labelledby="tab-login">
-											<form>
+											<!-- 											<form> -->
 
-												<!-- Email input -->
-												<div class="form-outline mb-4">
-													<input type="text" id="loginid" class="form-control" />
-													<label class="form-label" for="loginName">id</label>
-												</div>
+											<!-- Email input -->
+											<div class="form-outline mb-4">
+												<input type="text" id="loginid" class="form-control" /> <label
+													class="form-label" for="loginName">id</label>
+											</div>
 
-												<!-- Password input -->
-												<div class="form-outline mb-4">
-													<input type="password" id="loginPassword"
-														class="form-control" /> <label class="form-label"
-														for="loginPassword">Password</label>
-												</div>
+											<!-- Password input -->
+											<div class="form-outline mb-4">
+												<input type="password" id="loginPassword"
+													class="form-control" /> <label class="form-label"
+													for="loginPassword">Password</label>
+											</div>
+											<div class="alert alert-danger" id="login-danger">아이디나
+												비밀번호를 다시 확인하세요.</div>
 
-												<!-- 2 column grid layout -->
-												<div class="row mb-4">
-													<div class="col-md-6 d-flex justify-content-center">
-														<!-- Checkbox -->
-														<div class="form-check mb-3 mb-md-0">
-															<input class="form-check-input-check" type="checkbox"
-																value="" id="loginCheck" checked /> <label
-																class="form-check-label" for="loginCheck">
-																Remember me </label>
-														</div>
-													</div>
-
-													<div class="col-md-6 d-flex justify-content-center">
-														<!-- Simple link -->
-														<a href="#!">Forgot password?</a>
+											<!-- 2 column grid layout -->
+											<div class="row mb-4">
+												<div class="col-md-6 d-flex justify-content-center">
+													<!-- Checkbox -->
+													<div class="form-check mb-3 mb-md-0">
+														<input class="form-check-input-check" type="checkbox"
+															value="" id="loginCheck" checked /> <label
+															class="form-check-label" for="loginCheck">
+															Remember me </label>
 													</div>
 												</div>
 
-												<!-- Submit button -->
-												<button type="submit" onclick=signup() class="btn btn-primary btn-block mb-4">Sign
-													in</button>
-<!-- 로그인 부분 끝 -->
-												<!-- 회원 가입 부분 -->
-												<!-- Register buttons -->
-												<div class="text-center">
-													<p>
-														Not a member? <a href="#!">Register</a>
-													</p>
+												<div class="col-md-6 d-flex justify-content-center">
+													<!-- Simple link -->
+													<a href="#!">Forgot password?</a>
 												</div>
-											</form>
+											</div>
+
+											<!-- Submit button -->
+											<button type="submit" onclick=signup() id="loginbutton"
+												class="btn btn-primary btn-block mb-4">Sign in</button>
+											<!-- 로그인 부분 끝 -->
+											<!-- 회원 가입 부분 -->
+											<!-- Register buttons -->
+											<div class="text-center">
+												<p>
+													Not a member? <a href="#!">Register</a>
+												</p>
+											</div>
+											<!-- 											</form> -->
 										</div>
 										<div class="tab-pane fade" id="pills-register" role="tabpanel"
 											aria-labelledby="tab-register">
-											<form class="row g-3 needs-validation" novalidate>
+											<form class="row g-3 needs-validation" novalidate
+												name="formregister" method="post" action="insert.lg"
+												encType="UTF-8">
 												<!-- Nickname input -->
 												<div class="form-outline mb-4">
 													<input type="text" id="name" class="form-control" required
@@ -242,7 +191,7 @@ main {
 													아이디 입니다.</div>
 												<div class="alert alert-success" id="id-success">사용
 													가능한 아이디 입니다.</div>
-													
+
 
 
 												<!-- Password input -->
@@ -250,8 +199,8 @@ main {
 													<input type="password" id="registerPassword"
 														class="form-control" required
 														pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*[0-9]).{8,}"
-														maxlength="20" placeholder="숫자와 영어 포함 8자 이상" /> <label
-														class="form-label" for="registerPassword">Password</label>
+														minlength="8" maxlength="20" placeholder="숫자와 영어 포함 8자 이상" />
+													<label class="form-label" for="registerPassword">Password</label>
 												</div>
 
 												<!-- Repeat Password input -->
@@ -259,7 +208,7 @@ main {
 													<input type="password" id="registerRepeatPassword"
 														class="form-control" required
 														pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*[0-9]).{8,}"
-														maxlength="20" /> <label class="form-label"
+														minlength="8" maxlength="20" /> <label class="form-label"
 														for="registerRepeatPassword">Repeat password</label>
 												</div>
 
@@ -302,7 +251,7 @@ main {
 			</div>
 		</div>
 	</main>
-	
+
 	<!-- Prism -->
 
 	<script type="text/javascript"
@@ -314,7 +263,7 @@ main {
 	<!-- Custom scripts -->
 	<script type="text/javascript"></script>
 
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
@@ -333,14 +282,14 @@ main {
 	<script src="js/google-map.js"></script>
 	<script src="js/main.js"></script>
 
-<!-- YOUR WORK HERE -->
+	<!-- YOUR WORK HERE -->
 	<script src="js/telcheck.js"></script>
 	<script src="js/login-check.js"></script>
 	<script src="js/repeatPW.js"></script>
 	<script src="js/idoverlapcheck.js"></script>
 	<script src="js/join.js"></script>
 	<script src="js/signup.js"></script>
-	
+
 
 </body>
 

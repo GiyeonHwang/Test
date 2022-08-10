@@ -14,8 +14,6 @@
 <jsp:useBean id="abandonList" class="vo.AbandonList"></jsp:useBean>
 <jsp:useBean id="mapAddresChange" class="gg.MapAddresChange"
 	scope="request"></jsp:useBean>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="Nav.jsp"></jsp:include>
 <%
 String desertionNo = (String)request.getAttribute("desertionNo");//현재 페이지의 유기동물의 유기번호
 ArrayList<IndexCommentsVO> commentList = (ArrayList<IndexCommentsVO>)request.getAttribute("commentList");//현재 페이지의 유기동물의 유기번호
@@ -23,8 +21,8 @@ DateAbandon dateAbandon = abandonList.searchDesertionNo(desertionNo);//해당 �
 String[] addresses = mapAddresChange.geocoding(dateAbandon.getCareAddr()).split(",");// 해당 동물의 보호소의 주소를 좌표값으로 변환하는 함수를 호출하여 x,y 값을 string 배열로 받음
 // System.out.println("blog-single.jsp 유기번호 = " + desertionNo);
 // System.out.println("blog-single.jsp 유기번호 = " + commentList.toString());
+String userID = "mkc";
 %>
-<c:set var="userid" value="${id}"></c:set>
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -67,26 +65,21 @@ $(document).ready(function() {//입력폼 글자수 제한 300
         }
     });
 });
-window.onload = function() {
-	CommentSelect();
-	};
-	 function CommentSelect(){
+function CommentSelect(){
     $.ajax({
         type: "POST", // HTTP Method
-        url: "blog-singleSelect.bgs", // 목적지
+        url: "blog-singleInsert.bgs", // 목적지
         data: {
-		   desertionNo: <%=desertionNo%>
+            userid: id, // 전송 데이터
+            content: $("#messageCM").val(),
+            desertionNo: <%=desertionNo%>
         }
     }).done(function(data) {
-    	console.log("SelectAJax")
         // 			location.reload()
         console.log(data)
         let memberInfo = ""
         const jsonInfo = JSON.parse(data)
-        const commentCount = jsonInfo.listsize;
-		$("#commentCount").html(commentCount+" Comments");
-		const sessionid = '<c:out value="${userid}"/>';
-         if (!(Object.keys(jsonInfo).length == 0)) {
+        console.log(jsonInfo)
         console.log("데이터있음")
         for (const i in jsonInfo.members) {
             const comment = jsonInfo.members[i].comment;
@@ -102,27 +95,18 @@ window.onload = function() {
             memberInfo += '<div class="meta">'+regist_date+'</div>'
             memberInfo += '<p>' + comment + '</p>'
             memberInfo += '<p>'
-    		<c:choose>
-			<c:when test="${userid != null}">
             memberInfo += '<button class="reply" id="reply" onclick="fnMove('
-            memberInfo += '\'<c:out value="${userid}"/>\''
+            memberInfo += '\'<%=userID%>\''
             memberInfo += ');" type="button" >Reply</button>'
-            if(sessionid == userID){
             memberInfo += '<button class="reply" id="Del" value=' + indexComment + ' type="button" onclick="CommentdDelete(this);">Del</button>'
             memberInfo += '<button class="reply" id="modify" type="button"  value=' + indexComment + ' onclick = "CommentModify(this,&quot;' + userID + '&quot;,&quot;' + comment + '&quot;);">Modify</button>'
-            }
-            </c:when>
-			</c:choose>
             memberInfo += '</div></li>'
             $('#commentListUL').html(memberInfo)
         }
-    }else {
-        console.log("데이터없음")
-        $('#commentListUL').html(memberInfo)
-    }}).fail(function(Response) {
+    }).fail(function(Response) {
         console.log('에러')
     });
- }
+}
 function CommentInsert() { // 제출 버튼 이벤트 지정
     console.log('InsertAjax'); 
 //     <
@@ -138,7 +122,7 @@ function CommentInsert() { // 제출 버튼 이벤트 지정
 
 //     <
 //     % -- % > -- % >
-    const id = '<c:out value="${userid}"/>';
+    const id = 'mkc';
     $.ajax({
         type: "POST", // HTTP Method
         url: "blog-singleInsert.bgs", // 목적지
@@ -148,7 +132,34 @@ function CommentInsert() { // 제출 버튼 이벤트 지정
             desertionNo: <%=desertionNo%>
         }
     }).done(function(data) {
-    	CommentSelect();
+        // 			location.reload()
+        console.log(data)
+        let memberInfo = ""
+        const jsonInfo = JSON.parse(data)
+        console.log(jsonInfo)
+        console.log("데이터있음")
+        for (const i in jsonInfo.members) {
+            const comment = jsonInfo.members[i].comment;
+            const indexComment = jsonInfo.members[i].indexComment;
+            const userID = jsonInfo.members[i].userID;
+            const regist_date = jsonInfo.members[i].regist_date;
+            memberInfo += '<li class="comment" id="comment">'
+            memberInfo += '<div class="vcard bio">'
+            memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
+            memberInfo += '</div>'
+           	memberInfo += '<h3>'+ userID +'</h3>'
+            memberInfo += '<div class="comment-body">'
+            memberInfo += '<div class="meta">'+regist_date+'</div>'
+            memberInfo += '<p>' + comment + '</p>'
+            memberInfo += '<p>'
+            memberInfo += '<button class="reply" id="reply" onclick="fnMove('
+            memberInfo += '\'<%=userID%>\''
+            memberInfo += ');" type="button" >Reply</button>'
+            memberInfo += '<button class="reply" id="Del" value=' + indexComment + ' type="button" onclick="CommentdDelete(this);">Del</button>'
+            memberInfo += '<button class="reply" id="modify" type="button"  value=' + indexComment + ' onclick = "CommentModify(this,&quot;' + userID + '&quot;,&quot;' + comment + '&quot;);">Modify</button>'
+            memberInfo += '</div></li>'
+            $('#commentListUL').html(memberInfo)
+        }
     }).fail(function(Response) {
         console.log('에러')
     });
@@ -158,7 +169,7 @@ function CommentInsert() { // 제출 버튼 이벤트 지정
 function CommentdDelete(objButton) { // 제출 버튼 이벤트 지정
     console.log('CommentdDelete');
     const commentNum = objButton.value; //눌러진 버튼의 value값
-    const id = '<c:out value="${userid}"/>';
+    const id = 'mkc';
     $.ajax({
         type: "POST", // HTTP Method
         url: "blog-singleDelete.bgs", // 목적지
@@ -168,7 +179,38 @@ function CommentdDelete(objButton) { // 제출 버튼 이벤트 지정
             indexComments: commentNum
         }
     }).done(function(data) {
-    	CommentSelect();
+        console.log(data)
+        const jsonInfo = JSON.parse(data);
+        console.log(jsonInfo)
+        let memberInfo = ""
+        if (!(Object.keys(jsonInfo).length == 0)) {
+            console.log("데이터있음")
+            for (const i in jsonInfo.members) {
+                const comment = jsonInfo.members[i].comment;
+                const indexComment = jsonInfo.members[i].indexComment;
+                const userID = jsonInfo.members[i].userID;
+                const regist_date = jsonInfo.members[i].regist_date;
+                memberInfo += '<li class="comment" id="comment">'
+                memberInfo += '<div class="vcard bio">'
+                memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
+                memberInfo += '</div>'
+               	memberInfo += '<h3>'+ userID +'</h3>'
+                memberInfo += '<div class="comment-body">'
+                memberInfo += '<div class="meta">'+regist_date+'</div>'
+                memberInfo += '<p>' + comment + '</p>'
+                memberInfo += '<p>'
+                memberInfo += '<button class="reply" id="reply" onclick="fnMove('
+                memberInfo += '\'<%=userID%>\''
+                memberInfo += ');" type="button" >Reply</button>'
+                memberInfo += '<button class="reply" id="Del" value=' + indexComment + ' type="button" onclick="CommentdDelete(this);">Del</button>'
+                memberInfo += '<button class="reply" id="modify" type="button"  value=' + indexComment + ' onclick = "CommentModify(this,&quot;' + userID + '&quot;,&quot;' + comment + '&quot;);">Modify</button>'
+                memberInfo += '</div></li>'
+                $('#commentListUL').html(memberInfo)
+            }
+        } else {
+            console.log("데이터없음")
+            $('#commentListUL').html(memberInfo)
+        }
     }).fail(function(Response) {
         console.log('에러')
     });
@@ -178,7 +220,7 @@ function CommentdDelete(objButton) { // 제출 버튼 이벤트 지정
 function CommentModify(objButton, userID, comments) { // 입력 폼에 현재 입력된 내용 표시와 버튼의 onclick 호출 내용변경
     console.log('CommentModify');
     const commentNum = objButton.value;
-    const id = '<c:out value="${userid}"/>';
+    const id = 'mkc';
     console.log(comments);
     $("#messageCM").val(comments); //입력폼에 입력되었던 내용을 set
     //  	$("#buttonSubmit").attr("onclick", "functionAddBtn('N');"); // 온클릭 속성을 다시부여
@@ -187,7 +229,7 @@ function CommentModify(objButton, userID, comments) { // 입력 폼에 현재 �
 }
 
 function modifyButton(commentNum) { //수정버튼 클릭시 호출 메서드
-    const id = '<c:out value="${userid}"/>'; //후에 세션 아이디로 대체
+    const id = 'mkc'; //후에 세션 아이디로 대체
     $.ajax({
         type: "POST", // HTTP Method
         url: "blog-singleModify.bgs", // 목적지
@@ -198,7 +240,39 @@ function modifyButton(commentNum) { //수정버튼 클릭시 호출 메서드
             indexComments: commentNum
         }
     }).done(function(data) {
-    	CommentSelect();
+        //			location.reload()
+        console.log(data)
+        const jsonInfo = JSON.parse(data)
+        console.log(jsonInfo)
+        let memberInfo = ""
+        if (!(Object.keys(jsonInfo).length == 0)) {
+            console.log("데이터있음")
+            for (const i in jsonInfo.members) {
+                const comment = jsonInfo.members[i].comment;
+                const indexComment = jsonInfo.members[i].indexComment;
+                const userID = jsonInfo.members[i].userID;
+                const regist_date = jsonInfo.members[i].regist_date;
+                memberInfo += '<li class="comment" id="comment">'
+                memberInfo += '<div class="vcard bio">'
+                memberInfo += '<img src="images/person_1.jpg" alt="Image placeholder">'
+                memberInfo += '</div>'
+               	memberInfo += '<h3>'+ userID +'</h3>'
+                memberInfo += '<div class="comment-body">'
+                memberInfo += '<div class="meta">'+regist_date+'</div>'
+                memberInfo += '<p>' + comment + '</p>'
+                memberInfo += '<p>'
+                memberInfo += '<button class="reply" id="reply" onclick="fnMove('
+                memberInfo += '\'<%=userID%>\''
+                memberInfo += ');" type="button" >Reply</button>'
+                memberInfo += '<button class="reply" id="Del" value=' + indexComment + ' type="button" onclick="CommentdDelete(this);">Del</button>'
+                memberInfo += '<button class="reply" id="modify" type="button"  value=' + indexComment + ' onclick = "CommentModify(this,&quot;' + userID + '&quot;,&quot;' + comment + '&quot;);">Modify</button>'
+                memberInfo += '</div></li>'
+                $('#commentListUL').html(memberInfo)
+            }
+        } else {
+            console.log("데이터없음")
+            $('#commentListUL').html(memberInfo)
+        }
     }).fail(function(Response) {
         console.log('에러')
     });
@@ -207,6 +281,7 @@ function modifyButton(commentNum) { //수정버튼 클릭시 호출 메서드
     $('#buttonSubmit').attr('onclick', 'CommentInsert();')} // 수정 후 수정버튼을 다시 입력버튼으로 수정
 </script>
 <body>
+<jsp:include page="Nav.jsp"></jsp:include>
 	<!-- END nav -->
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('images/bg_2.jpg');"
@@ -365,22 +440,26 @@ function modifyButton(commentNum) { //수정버튼 클릭시 호출 메서드
 					<div class="pt-5 mt-5" id="ajaxASDiv">
 						<h3 class="mb-5" id="commentCount"></h3>
 						<ul class="comment-list" id="commentListUL">
-<%-- 							<c:forEach items="${commentList}" var="result" varStatus="status"> --%>
-<!-- 							<li class="comment"> -->
-<!-- 								<div class="vcard bio"> -->
-<!-- 									<img src="images/person_1.jpg" alt="Image placeholder"> -->
-<!-- 								</div> -->
-<!-- 								<div class="comment-body"> -->
-<%-- 									<h3><%=userID%></h3> --%>
-<%-- 									<div class="meta"><c:out value="${result.getRegist_date()}"/></div> --%>
-<%-- 									<p><c:out value="${result.getComment()}"></c:out></p> --%>
-<!-- 									<p> -->
-<%-- 										<button class="reply" id="reply" onclick="fnMove('<%=userID%>');" type="button" >Reply</button> --%>
-<%-- 										<button class="reply" id="Del" value = "${result.getIndexComments()}" onclick="CommentdDelete(this);" type="button" >Del</button> --%>
-<%-- 										<button class="reply" id="modify" value="${result.getIndexComments()}"   onclick="CommentModify(this,'<%=userID%>','${result.getComment()}');" type="button" >Modify</button> --%>
-<!-- 								</div> -->
-<!-- 							</li> -->
-<%-- 							</c:forEach> --%>
+							<%
+							for (IndexCommentsVO vo : commentList) {
+							%>
+							<li class="comment">
+								<div class="vcard bio">
+									<img src="images/person_1.jpg" alt="Image placeholder">
+								</div>
+								<div class="comment-body">
+									<h3><%=vo.getUserID() %></h3>
+									<div class="meta"><%=vo.getRegist_date() %></div>
+									<p><%=vo.getComment()%></p>
+									<p>
+										<button class="reply" id="reply" onclick="fnMove('<%=userID%>');" type="button" >Reply</button>
+										<button class="reply" id="Del" value="<%=vo.getIndexComments()%>"  onclick="CommentdDelete(this);" type="button" >Del</button>
+										<button class="reply" id="modify" value="<%=vo.getIndexComments()%>"   onclick="CommentModify(this,'<%=userID%>','<%=vo.getComment()%>');" type="button" >Modify</button>
+								</div>
+							</li>
+							<%
+							}
+							%>
 							<!--  <li class="comment">
 								<div class="vcard bio">
 									<img src="images/person_1.jpg" alt="Image placeholder">
@@ -477,11 +556,9 @@ function modifyButton(commentNum) { //수정버튼 클릭시 호출 메서드
 						</ul>
 						<!-- END comment-list -->
 <!-- 						코멘트 입력 창 -->
-					<c:choose>
-						<c:when test="${userid != null}">
-							<div class="comment-form-wrap pt-5" id="leaveCommFrm">
+						<div class="comment-form-wrap pt-5" id="leaveCommFrm">
 							<h3 class="mb-5">Leave a comment</h3>
-							<form action="#" class="p-5 bg-light" >
+<!-- 							<form action="#" class="p-5 bg-light" > -->
 								<div class="form-group">
 									<label for="name">NickName *</label> <input type="text"
 										class="form-control" id="name" value="" readonly="readonly">
@@ -498,12 +575,8 @@ function modifyButton(commentNum) { //수정버튼 클릭시 호출 메서드
 										class="btn py-3 px-4 btn-primary" name="buttonSubmit" id="buttonSubmit" onclick="CommentInsert();">
 								</div>
 
-							</form>
-						</div></c:when>
-					</c:choose>
-
-
-					
+<!-- 							</form> -->
+						</div>
 					</div>
 
 				</div>

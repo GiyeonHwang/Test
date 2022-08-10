@@ -11,3 +11,4 @@ function fnMove(mkc) {
 	$('html, body').animate({ scrollTop: offset.top }, 1000);
 }
 
+
