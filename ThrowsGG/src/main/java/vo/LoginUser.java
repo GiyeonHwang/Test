@@ -11,7 +11,7 @@ public class LoginUser {
 		this(null,null,null,null,null);
 	}
 	
-	public LoginUser(String name, String phone, String email, String id, String password){
+	public LoginUser(String id, String password, String name, String phone, String email){
 		setName(name);
 		setPhone(phone);
 		setEmail(email);

@@ -51,11 +51,12 @@ public class loginController extends HttpServlet {
 		} else if (command.equals("/insert.lg")) {
 			MemberInsertDAO insert = new MemberInsertDAO();
 			String name = request.getParameter("name");
-			String phoneNum = request.getParameter("phoneNum");
+			String phoneNum = request.getParameter("phone");
 			String email = request.getParameter("email");
 			String id = request.getParameter("id");
 			String pw = request.getParameter("password");
 			System.out.println(name + " " + phoneNum + " " + email + " " + id + " " + pw);
+			insert.insertMember(name, phoneNum, email, id, pw);
 			response.sendRedirect("Welcome.jsp");
 //			response.getWriter().write(new MemberInsertDAO().insertMember(name, phoneNum, email, id, pw) + "");
 		} else if (command.equals("/login.lg")) {

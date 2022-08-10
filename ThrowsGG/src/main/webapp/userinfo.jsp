@@ -225,26 +225,41 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 								</div>
 							</div>
 							<hr class="border-light m-0">
-
+							
 							<div class="card-body">
-								<div class="form-group">
-									<label class="form-label">Username</label> <input type="text"
-										class="form-control mb-1" value="nmaxwell">
-								</div>
+							<form name="userinfo">
 								<div class="form-group">
 									<label class="form-label">Name</label> <input type="text"
-										class="form-control" value="Nelle Maxwell">
+										class="form-control" id="name" name ="name"
+										value=<%out.println((String) session.getAttribute("name"));%>
+										required minlength="2" maxlength="10" placeholder="2자 이상">
 								</div>
 								<div class="form-group">
-									<label class="form-label">E-mail</label> <input type="text"
-										class="form-control mb-1" value="nmaxwell@mail.com">
+									<label class="form-label">E-mail</label> <input type="email"
+										id="email" required
+										pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+										maxlength="30" placeholder="ex)abc123@gmail.com"
+										class="form-control mb-1"
+										value=<%out.println((String) session.getAttribute("email"));%>>
 								</div>
 								<div class="form-group">
-									<label class="form-label">Company</label> <input type="text"
-										class="form-control" value="Company Ltd.">
+									<label class="form-label">phone</label> <input type="text"
+										class="form-control"
+										value=<%out.println((String) session.getAttribute("phone"));%>
+										id="phoneNum" required
+										pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
+										placeholder=" - 자동">
 								</div>
+								<div class="form-group">
+								</form>
+								<div class="text-right mt-3">
+			<button type="button" class="btn btn-primary" onclick= changeinfo()>정보 저장</button>
+			&nbsp;
+			<button type="button" class="btn btn-primary" onclick= cancleinfo()>취소</button>
+							</div>
 							</div>
 
+		</div>
 						</div>
 						<div class="tab-pane fade" id="account-change-password">
 							<div class="card-body pb-2">
@@ -263,6 +278,13 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 									<label class="form-label">Repeat new password</label> <input
 										type="password" class="form-control">
 								</div>
+								<div class="form-group">
+								<div class="text-right mt-3">
+			<button type="button" class="btn btn-primary" onclick= change()>정보 저장</button>
+			&nbsp;
+			<button type="button" class="btn btn-primary" >취소</button>
+							</div>
+							</div>
 
 							</div>
 						</div>
@@ -432,11 +454,7 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 			</div>
 		</div>
 
-		<div class="text-right mt-3">
-			<button type="button" class="btn btn-primary">Save changes</button>
-			&nbsp;
-			<button type="button" class="btn btn-default">Cancel</button>
-		</div>
+		
 
 	</div>
 
@@ -490,9 +508,27 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     	  var output = document.getElementById('output');
           output.src = "https://bootdey.com/img/Content/avatar/avatar1.png";
       }
+      
+    
+      
+      function cancleinfo(){
+//     	  var name = document.forms['userinfo']['name'];
+//     	  console.log(name.value);
+    	  <%
+    	  String name = (String)session.getAttribute("name");
+    	  String email = (String)session.getAttribute("email");
+    	  String phone = (String)session.getAttribute("phone");
+
+    	  %>
+<%--     	  name.setAttribute('value','<%out.print(name);%>'); --%>
+    	  document.getElementById('name').value='<%out.print(name);%>';
+    	  document.getElementById('email').value='<%out.print(email);%>';
+    	  $('#phoneNum').val('<%out.print(phone);%>');
+      }
       </script>
 
-
+	<script src="js/telcheck.js"></script>
+	<script src="js/repeatPW.js"></script>
 
 </body>
 

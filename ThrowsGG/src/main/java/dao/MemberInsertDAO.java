@@ -25,8 +25,8 @@ public class MemberInsertDAO {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
-		String SQL = "INSERT INTO member (name,phone,email,id,password) " + "values (?,?,?,?,?)";
+		String key = "1234";
+		String SQL = "INSERT INTO member (name,phone,email,id,password) " + "values (?,?,?,?,HEX(AES_ENCRYPT(?,?)))";
 		System.out.println(SQL);
 		try {
 			pstmt = con.prepareStatement(SQL);
@@ -35,6 +35,7 @@ public class MemberInsertDAO {
 			pstmt.setString(3, email);
 			pstmt.setString(4, id);
 			pstmt.setString(5, pw);
+			pstmt.setString(6, key);
 			System.out.println("insert : " + name + " " + phone + " " + email + " " + id + " " + pw);
 			pstmt.executeUpdate();
 			System.out.println("insert!!");
@@ -42,7 +43,7 @@ public class MemberInsertDAO {
 			return true;
 		} catch (Exception e) {
 			System.out.println("insert fail!!");
+			return false;
 		}
-		return true;
 	}
 }

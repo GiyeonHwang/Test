@@ -32,7 +32,7 @@
 }
 
 
-var phoneNum = document.getElementById('phoneNum');
+var phoneNum = document.getElementById('phone');
 
 phoneNum.onkeyup = function(){
   console.log(this.value);

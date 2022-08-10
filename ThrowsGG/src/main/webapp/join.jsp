@@ -158,23 +158,23 @@ main {
 												encType="UTF-8">
 												<!-- Nickname input -->
 												<div class="form-outline mb-4">
-													<input type="text" id="name" class="form-control" required
+													<input type="text" id="name" class="form-control" name="name" required
 														minlength="2" maxlength="10" placeholder="2자 이상" /> <label
 														class="form-label" for="registerName">Nickname</label>
 												</div>
 
 												<!-- phone input -->
 												<div class="form-outline mb-4">
-													<input type="tel" class="form-control m-input" name="tel"
-														id="phoneNum" required
-														pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13"
+													<input type="tel" class="form-control" name="phone"
+														id="phone" required
+														pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}" maxlength="13" 
 														placeholder=" - 자동" /> <label class="form-label"
 														for="registerUsername">phone number</label>
 												</div>
 
 												<!-- Email input -->
 												<div class="form-outline mb-4">
-													<input type="email" id="email" class="form-control"
+													<input type="email" id="email" name="email" class="form-control"
 														required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
 														maxlength="30" placeholder="ex)abc123@gmail.com" /> <label
 														class="form-label" for="loginName">Email</label>
@@ -183,7 +183,7 @@ main {
 
 												<!-- id input -->
 												<div class="form-outline mb-4">
-													<input type="text" id="id" class="form-control" required
+													<input type="text" id="id" name="id" class="form-control" required
 														minlength="5" maxlength="20" placeholder="5자 이상" /> <label
 														class="form-label" for="registerEmail">id</label>
 												</div>
@@ -196,7 +196,7 @@ main {
 
 												<!-- Password input -->
 												<div class="form-outline mb-4">
-													<input type="password" id="registerPassword"
+													<input type="password" id="registerPassword" name="password"
 														class="form-control" required
 														pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*[0-9]).{8,}"
 														minlength="8" maxlength="20" placeholder="숫자와 영어 포함 8자 이상" />

@@ -42,9 +42,9 @@
    var id = document.getElementById('id');
    var password = repeatpw;
    if(name.checkValidity()&&phoneNum.checkValidity()&&email.checkValidity()&&id.checkValidity()&&password&&!idTF){
-       frmLogin.method = "post";
-       frmLogin.action = "insert.lg";
-       frmLogin.submit();    // 자바스크립트에서 서블릿으로 전송
+       formregister.method = "post";
+       formregister.action = "insert.lg";
+       formregister.submit();    // 자바스크립트에서 서블릿으로 전송
 
    }else{
       
